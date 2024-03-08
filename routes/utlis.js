@@ -6,6 +6,8 @@ let formatDate = {
   minute: "numeric",
 };
 
+let count = 1;
+
 function makeButonEditDelete(id, model) {
   return `<button class="btn btn-info"onclick="onEdit('${id}','${model}')">
         <i class="fa fa-pen"></i></button>
