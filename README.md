@@ -1,3 +1,3 @@
-## Comandes
-Prisma migrations
-- npx prisma migrate dev --name init
+## Commands 
+Prisma migration
+- npx prisma migrate dev --name "Migration Name"
