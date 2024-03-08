@@ -8,18 +8,19 @@ const terrenoRoutes = require("./terreno");
 const bairroRoutes = require("./bairro");
 const categoriaRoutes = require("./categoria");
 const userRoutes = require("./user");
+const utenteRoutes = require("./utente");
 
 // Serve index.html on the root route
 router.get("/", (req, res) => {
-  res.render("index")
+  res.render("index");
 });
 
 router.get("/map", (req, res) => {
-  res.render("map")
+  res.render("map");
 });
 
 router.get("/sobre", (req, res) => {
-  res.render("sobre")
+  res.render("sobre");
 });
 
 router.use("/markings", markingsRoutes);
@@ -27,5 +28,6 @@ router.use("/bairro", bairroRoutes);
 router.use("/terreno", terrenoRoutes);
 router.use("/categoria", categoriaRoutes);
 router.use("/user", userRoutes);
+router.use("/utente", utenteRoutes);
 
 module.exports = router;

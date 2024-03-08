@@ -1,0 +1,116 @@
+<div class="row mb-2">
+    <div class="col">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h3 class="card-title">Utentes Registrados...</h3>
+            </div>
+            <div class="card-body">
+                <button id="btn-novo-utente" type="button" class="btn btn-primary"><i class="fa fa-bell"></i>
+                    Registrar Novo Bairro</button>
+                <hr />
+                <table style="width: 100%;" id="table-utente" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>BI</th>
+                            <th>Genero</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Registrado aos</th>
+                            <th> - </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Nome</td>
+                            <td>BI</td>
+                            <td>Genero</td>
+                            <td>Email</td>
+                            <td>Telefone</td>
+                            <td>Registrado aos</td>
+                            <td> - </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-utente">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Registrar Utente</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-utente" autocomplete="off">
+                    <input type="hidden" name="id" id="id" value="-1" />
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" class="form-control" id="nome" name="nome"
+                                placeholder="Digite o nome completo" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bi">BI</label>
+                            <input type="text" class="form-control" id="bi" name="bi" placeholder="Digite o BI"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="morada">Morada</label>
+                            <input type="text" class="form-control" id="morada" name="morada" placeholder=" ..." />
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label id="nascimento">Data de Nascimento</label>
+                                    <input type="date" class="form-control" id="nascimento" name="nascimento"
+                                        placeholder="dd/mm/aaaa" />
+                                </div>
+                            </div>
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label for="genero">Genero</label>
+                                    <select required name="genero" id="genero" class="form-control select2"
+                                        style="width: 100%;">
+                                        <option selected disabled>Selecione uma opcao</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label id="telefone">Telefone</label>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone"
+                                        placeholder="999 999 999" />
+                                </div>
+                            </div>
+                            <div class="col col-md-6">
+                                <div class="form-group">
+                                    <label id="email">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="utente@gamil.com" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

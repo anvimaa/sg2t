@@ -30,6 +30,8 @@ model Categoria {
 
 model Marking {
   id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   type        String
   geojson     String
   name        String
@@ -39,10 +41,46 @@ model Marking {
   fillOpacity Int
   color       String
   weight      Int
-  bairro      Bairro     @relation(fields: [bairroId], references: [id])
   bairroId    Int
-  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
   categoriaId Int
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  bairro      Bairro     @relation(fields: [bairroId], references: [id])
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
+  terrenos    Terreno[]
+}
+
+model Utente {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  nome       String
+  bi         String    @unique
+  genero     String
+  nascimento DateTime?
+  morada     String
+  foto       String?
+  telefone   String?   @unique
+  email      String?   @unique
+  terrenos   Terreno[]
+}
+
+model Terreno {
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  estado         String?   @default("Pendente")
+  proprietarioId Int
+  markingId      Int
+  proprietario   Utente?   @relation(fields: [proprietarioId], references: [id])
+  marking        Marking?  @relation(fields: [markingId], references: [id])
+  licenca        Licenca[]
+}
+
+model Licenca {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  descricao String
+  numero    String
+  terrenoId Int
+  terreno   Terreno? @relation(fields: [terrenoId], references: [id])
 }
