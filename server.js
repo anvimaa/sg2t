@@ -17,5 +17,5 @@ hbs.registerPartials(__dirname + "/views/parcials");
 app.use("/", routes);
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+  console.log(`Server running http://localhost:${port}/`);
 });
