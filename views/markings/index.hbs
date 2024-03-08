@@ -1,0 +1,109 @@
+<div class="row mb-2">
+  <div class="col">
+    <div class="card">
+      <div class="card-header justify-content-between">
+        <h3 class="card-title">Pontos Registrados...</h3>
+      </div>
+      <div class="card-body">
+        <table style="width: 100%;" id="table-markings" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Descrição do Ponto</th>
+              <th>Código</th>
+              <th>Referência</th>
+              <th>Bairro</th>
+              <th>Categoria</th>
+              <th>Registrado aos</th>
+              <th> - </th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Descrição do Ponto</th>
+              <th>Código</th>
+              <th>Referência</th>
+              <th>Bairro</th>
+              <th>Categoria</th>
+              <th>Registrado aos</th>
+              <th> - </th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal-markings">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Salvar Marcação</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form-markings" autocomplete="off">
+          <input type="hidden" name="id" id="id" value="-1" />
+          <div class="card-body">
+            <div class="form-group">
+              <label for="name">Descrição do Local</label>
+              <input type="text" class="form-control" id="name" name="name" autocomplete="off" placeholder=" ..."
+                required />
+            </div>
+            <div class="form-group">
+              <label for="code">Código</label>
+              <input type="text" autocomplete="off" class="form-control" id="code" name="code" placeholder=" ..."
+                required />
+            </div>
+            <div class="form-group">
+              <label for="ref">Referência</label>
+              <input type="text" class="form-control" autocomplete="off" id="ref" name="ref" placeholder=" ..." />
+            </div>
+          </div>
+
+          <p>Propriedades da forma</p>
+          <hr>
+
+          <div class="row">
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label for="code">Preenchimento</label>
+                <input type="color" class="form-control" name="fillColor" id="fillColor" required placeholder=" ..." />
+              </div>
+            </div>
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label for="code">Opacidade</label>
+                <input type="range" min="1" max="10" class="form-control" name="fillOpacity" id="fillOpacity" required
+                  placeholder=" ..." />
+              </div>
+            </div>
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label for="ref">Borda</label>
+                <input type="color" class="form-control" name="color" id="color" required placeholder=" ..." />
+              </div>
+            </div>
+            <div class="col col-md-3">
+              <div class="form-group">
+                <label for="code">Largura</label>
+                <input type="range" min="1" value="3" max="5" class="form-control" name="weight" id="weight" required
+                  placeholder=" ..." />
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

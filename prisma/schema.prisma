@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Bairro {
+  id        Int       @id @default(autoincrement())
+  nome      String    @unique
+  descricao String?
+  markings  Marking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Categoria {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  descricao String?
+  markings  Marking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Marking {
+  id          Int        @id @default(autoincrement())
+  type        String
+  geojson     String
+  name        String
+  code        String     @unique
+  ref         String?
+  fillColor   String
+  fillOpacity Int
+  color       String
+  weight      Int
+  bairro      Bairro     @relation(fields: [bairroId], references: [id])
+  bairroId    Int
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
+  categoriaId Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}

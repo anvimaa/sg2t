@@ -1,0 +1,54 @@
+
+#map {
+  height: 90vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+  padding: 6px 8px;
+  font: 12px/14px Arial, Helvetica, sans-serif;
+  color: white;
+  background: rgba(52, 58, 64, 0.8);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  text-align: left;
+}
+
+/*Botao de ver e desligar as formas...*/
+
+#toggle-markings {
+  background-color: rgb(30, 70, 4);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 5px; /* Deixa o botão arredondado */
+  transition: background-color 0.3s, color 0.3s; /* Adiciona uma transição suave */
+  margin-bottom: 10px;
+}
+
+#toggle-markings:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+#toggle-markings.hidden {
+  background-color: rgb(230, 105, 105);
+}
+
+#toggle-markings.visible {
+  background-color: rgb(30, 70, 4);
+}
+
+/* Estilos para o formulário */
+#form {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-popup-content-wrapper{
+  min-width: 150px;
+}
