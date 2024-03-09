@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <button id="btn-novo-utente" type="button" class="btn btn-primary"><i class="fa fa-bell"></i>
-                    Registrar Novo Bairro</button>
+                    Registrar Utente</button>
                 <hr />
                 <table style="width: 100%;" id="table-utente" class="table table-bordered table-striped">
                     <thead>
@@ -23,13 +23,13 @@
                     <tbody></tbody>
                     <tfoot>
                         <tr>
-                            <td>Nome</td>
-                            <td>BI</td>
-                            <td>Genero</td>
-                            <td>Email</td>
-                            <td>Telefone</td>
-                            <td>Registrado aos</td>
-                            <td> - </td>
+                            <th>Nome</th>
+                            <th>BI</th>
+                            <th>Genero</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Registrado aos</th>
+                            <th> - </th>
                         </tr>
                     </tfoot>
                 </table>
@@ -42,7 +42,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Registrar Utente</h4>
+                <h4 class="card-title" id="card-title">Registrar Utente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -50,6 +50,7 @@
             <div class="modal-body">
                 <form id="form-utente" autocomplete="off">
                     <input type="hidden" name="id" id="id" value="-1" />
+                    <input type="hidden" name="foto" id="foto" value="/dist/image/avatar.png" />
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nome">Nome Completo</label>
@@ -91,15 +92,14 @@
                             <div class="col col-md-6">
                                 <div class="form-group">
                                     <label id="telefone">Telefone</label>
-                                    <input type="tel" class="form-control" id="telefone" name="telefone"
-                                        placeholder="999 999 999" />
+                                    <input type="text" class="form-control" id="telefone" name="telefone"
+                                        placeholder="" />
                                 </div>
                             </div>
                             <div class="col col-md-6">
                                 <div class="form-group">
                                     <label id="email">E-mail</label>
-                                    <input type="email" class="form-control" id="email" name="email"
-                                        placeholder="utente@gamil.com" />
+                                    <input type="text" class="form-control" id="email" name="email" placeholder="" />
                                 </div>
                             </div>
                         </div>

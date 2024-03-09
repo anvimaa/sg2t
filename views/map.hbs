@@ -15,20 +15,20 @@
           <div class="card-body">
             <div class="form-group">
               <label for="name">Descrição do Local</label>
-              <input type="text" class="form-control" id="name" autocomplete="off" placeholder=" ..." required />
+              <input type="text" class="form-control" id="name" name="name" placeholder=" ..." required />
             </div>
 
             <div class="row">
               <div class="col col-md-6">
                 <div class="form-group">
                   <label for="code">Código</label>
-                  <input type="text" autocomplete="off" class="form-control" id="code" required placeholder=" ..." />
+                  <input type="text" class="form-control" name="code" id="code" required placeholder=" ..." />
                 </div>
               </div>
               <div class="col col-md-6">
                 <div class="form-group">
                   <label for="ref">Referência</label>
-                  <input type="text" class="form-control" autocomplete="off" id="ref" required placeholder=" ..." />
+                  <input type="text" class="form-control" name="ref" id="ref" required placeholder=" ..." />
                 </div>
               </div>
             </div>
@@ -36,14 +36,15 @@
             <div class="row">
               <div class="col col-md-6">
                 <div class="form-group">
-                  <label>Categoria</label>
-                  <select required name="categoriaId" id="categoriaId" class="form-control select2" style="width: 100%;">
+                  <label for="categoriaId">Categoria</label>
+                  <select required name="categoriaId" id="categoriaId" class="form-control select2"
+                    style="width: 100%;">
                   </select>
                 </div>
               </div>
               <div class="col col-md-6">
                 <div class="form-group">
-                  <label>Bairro</label>
+                  <label for="bairroId">Bairro</label>
                   <select required name="bairroId" id="bairroId" class="form-control select2" style="width: 100%;">
                   </select>
                 </div>
@@ -53,33 +54,37 @@
             <p>Propriedades da forma</p>
             <hr>
 
-             <div class="row">
+            <div class="row">
               <div class="col col-md-3">
                 <div class="form-group">
-                  <label for="code">Preenchimento</label>
-                  <input type="color" value="#3d7eff" class="form-control" id="fillColor" required placeholder=" ..." />
+                  <label for="fillColor">Preenchimento</label>
+                  <input type="color" value="#3d7eff" class="form-control" name="fillColor" id="fillColor" required
+                    placeholder=" ..." />
                 </div>
               </div>
               <div class="col col-md-3">
                 <div class="form-group">
-                  <label for="code">Opacidade</label>
-                  <input type="range" min="1" value="3" max="10" class="form-control" id="fillOpacity" required placeholder=" ..." />
+                  <label for="fillOpacity">Opacidade</label>
+                  <input type="range" min="1" value="3" max="10" class="form-control" name="fillOpacity"
+                    id="fillOpacity" required placeholder=" ..." />
                 </div>
               </div>
               <div class="col col-md-3">
                 <div class="form-group">
-                  <label for="ref">Borda</label>
-                  <input type="color" value="#ff0000" class="form-control" id="color" required placeholder=" ..." />
+                  <label for="color">Borda</label>
+                  <input type="color" value="#ff0000" class="form-control" id="color" name="color" required
+                    placeholder=" ..." />
                 </div>
               </div>
               <div class="col col-md-3">
                 <div class="form-group">
-                  <label for="code">Largura</label>
-                  <input type="range" min="1" value="2" max="5" class="form-control" id="weight" required placeholder=" ..." />
+                  <label for="weight">Largura</label>
+                  <input type="range" min="1" value="2" max="5" class="form-control" name="weight" id="weight" required
+                    placeholder=" ..." />
                 </div>
               </div>
             </div>
-            
+
             <div class="card-footer">
               <button type="submit" class="btn btn-primary">Salvar</button>
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

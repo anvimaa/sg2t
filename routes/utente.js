@@ -59,15 +59,14 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    let data = req.body;
-    let id = Number(data.id);
-
+    let { nome, bi, telefone, email, nascimento, genero, morada } = req.body;
+    let data = { nome, bi, telefone, email, nascimento, genero, morada };
+    let id = Number(req.body.id);
     let message = "";
     if (id == -1) {
       const exist = await prisma.utente.findFirst({
         where: { bi: data.bi, email: data.email, telefone: data.telefone },
       });
-      console.log(exist);
       if (exist) {
         return res
           .status(400)

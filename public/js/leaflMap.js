@@ -105,11 +105,8 @@ showLayersButton.onAdd = function (map) {
 };
 showLayersButton.addTo(map);
 
-function loadMap() {
-  //Bascar objetos na Base
-  $("#id").val(-1);
-  $("#form")[0].reset();
-
+async function loadMap() {
+  await resetForm();
   fetch("/markings")
     .then((response) => response.json())
     .then((data) => {
@@ -150,6 +147,7 @@ function loadMap() {
 
 function openModal(type, layer) {
   $("#modal-default").modal("show");
+  console.log(type);
 
   $("#form").submit(function (e) {
     e.preventDefault();
@@ -178,6 +176,22 @@ function openModal(type, layer) {
     drawnItems.addLayer(layer);
 
     let geojson = JSON.stringify(layer.toGeoJSON());
+    let data = {
+      id,
+      type,
+      geojson,
+      name,
+      code,
+      ref,
+      fillColor,
+      fillOpacity,
+      color,
+      weight,
+      bairroId,
+      categoriaId,
+    };
+
+    console.log(data);
 
     //Salvar Dados na Base de Dados
     fetch("/markings", {
@@ -185,20 +199,7 @@ function openModal(type, layer) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        id,
-        type,
-        geojson,
-        name,
-        code,
-        ref,
-        fillColor,
-        fillOpacity,
-        color,
-        weight,
-        bairroId,
-        categoriaId,
-      }),
+      body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -241,7 +242,7 @@ function geojsonExport() {
 
 function populeteSelect(id, url) {
   $(id).empty();
-  $(id).append(`<option selected disabled>Escolha uma opção</option>`);
+  $(id).append(`<option selected disabled value="">Escolha uma opção</option>`);
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
@@ -256,6 +257,20 @@ function populeteSelect(id, url) {
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+async function resetForm() {
+  console.log("Reset Form");
+  $("#name").val("teste");
+  $("#code").val("");
+  $("#ref").val("");
+  $("#bairroId").val("").change();
+  $("#categoriaId").val("").change();
+  $("#fillColor").val("#3d7eff");
+  $("#fillOpacity").val(3);
+  $("#color").val("#ff0000");
+  $("#weight").val(2);
+  $("#id").val(-1);
 }
 
 $(function () {
