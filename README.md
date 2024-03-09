@@ -14,13 +14,12 @@ O projeto é desenvolvido utilizando as seguintes tecnologias:
 
 - Node.js
 - Express
-- Hbs (Handlebars) View Engine
 - Prisma ORM
 - SQLite (Banco de Dados Local para Desenvolvimento)
 - PostgreSQL (Banco de Dados em Produção)
 
 ### Frontend
-
+- Hbs (Handlebars) View Engine
 - Leaflet.js
 - Bootstrap
 - AdminLTE
@@ -45,7 +44,7 @@ O projeto é desenvolvido utilizando as seguintes tecnologias:
 3. Execute o aplicativo localmente:
 
    ```bash
-   npm server.js
+   node server.js
    ```
 
 4. Abra o navegador e acesse `http://localhost:3000` para visualizar o sistema em execução.
