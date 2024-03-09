@@ -13,7 +13,6 @@ app.use(express.json());
 
 hbs.registerPartials(__dirname + "/views/parcials");
 
-// Use routes from the routes/index.js file
 app.use("/", routes);
 
 app.listen(port, () => {
