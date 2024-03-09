@@ -4,7 +4,6 @@ const router = express.Router();
 
 // Import and use the markings routes
 const markingsRoutes = require("./markings");
-const terrenoRoutes = require("./terreno");
 const bairroRoutes = require("./bairro");
 const categoriaRoutes = require("./categoria");
 const userRoutes = require("./user");
@@ -25,7 +24,6 @@ router.get("/sobre", (req, res) => {
 
 router.use("/markings", markingsRoutes);
 router.use("/bairro", bairroRoutes);
-router.use("/terreno", terrenoRoutes);
 router.use("/categoria", categoriaRoutes);
 router.use("/user", userRoutes);
 router.use("/utente", utenteRoutes);

@@ -177,7 +177,6 @@ function onEdit(id, model) {
     .then((data) => {
       $.each(data, (key, value) => {
         $(`#${key}`).val(value).change();
-        console.log(`${key} - ${value}`);
       });
       showModal(`#modal-${model}`);
     })

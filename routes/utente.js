@@ -14,7 +14,7 @@ router.get("/page", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     let data = await prisma.utente.findMany({
-      include: { terrenos: true },
+      include: { markings: true },
     });
 
     data = data.map((d) => {
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
         nascimento: d.nascimento.toLocaleDateString("pt-BB", formatDate),
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
         btn: makeButonEditDelete(d.id, "utente"),
-        terrenos: d.terrenos,
+        markings: d.markings,
       };
     });
     return res.send({ data: data });
@@ -44,10 +44,14 @@ router.get("/:id", async (req, res) => {
     const id = Number(req.params.id);
     const exist = await prisma.utente.findFirst({
       where: { id },
-      include: { terrenos: true },
+      include: { markings: true },
     });
 
     if (exist) {
+      exist.nascimento = exist.nascimento.toLocaleDateString(
+        "pt-BR",
+        formatDate
+      );
       return res.json(exist);
     }
 

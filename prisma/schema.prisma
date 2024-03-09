@@ -32,6 +32,7 @@ model Categoria {
   updatedAt DateTime  @updatedAt
 }
 
+// Representa o espaço ou terreno
 model Marking {
   id          Int        @id @default(autoincrement())
   createdAt   DateTime   @default(now())
@@ -40,7 +41,6 @@ model Marking {
   geojson     String
   name        String
   code        String     @unique
-  ref         String?
   fillColor   String
   fillOpacity Int
   color       String
@@ -49,7 +49,15 @@ model Marking {
   categoriaId Int
   bairro      Bairro     @relation(fields: [bairroId], references: [id])
   categoria   Categoria? @relation(fields: [categoriaId], references: [id])
-  terrenos    Terreno[]
+  utenteId    Int?
+  utente      Utente?    @relation(fields: [utenteId], references: [id])
+  largura     Decimal?
+  comprimento Decimal?
+  estado      String?    @default("Pendente")
+  titulo      String?
+  licenca     String?
+  ref         String?
+  licencas    Licenca[]
 }
 
 model Utente {
@@ -58,40 +66,22 @@ model Utente {
   updatedAt  DateTime  @updatedAt
   nome       String
   bi         String    @unique
-  genero     String
+  genero     String?
   nascimento DateTime?
-  morada     String
+  morada     String?
   foto       String?
   telefone   String?   @unique
   email      String?   @unique
-  terrenos   Terreno[]
-}
-
-model Terreno {
-  id             Int       @id @default(autoincrement())
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  estado         String?   @default("Pendente")
-  proprietarioId Int
-  markingId      Int
-  proprietario   Utente?   @relation(fields: [proprietarioId], references: [id])
-  marking        Marking?  @relation(fields: [markingId], references: [id])
-  licenca        Licenca[]
+  markings   Marking[]
 }
 
 model Licenca {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  descricao String
-  numero    String
-  terrenoId Int
-  terreno   Terreno? @relation(fields: [terrenoId], references: [id])
-}
-
-model Todo {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  descricao  String
+  numero     String
+  observacao String?
+  markingId  Int?
+  marking    Marking? @relation(fields: [markingId], references: [id])
 }

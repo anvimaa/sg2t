@@ -11,6 +11,29 @@ router.get("/page", async (req, res) => {
   }
 });
 
+router.get("/detail/:id", async (req, res) => {
+  try {
+    let id = Number(req.params.id);
+    const marking = await prisma.marking.findUnique({
+      where: { id },
+      include: {
+        utente: true,
+        licencas: true,
+        bairro: true,
+        categoria: true,
+      },
+    });
+
+    if (!marking) {
+      return res.status(404).redirect("/");
+    }
+    console.log(marking);
+    res.render("markings/detail", { marking });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     let data = await prisma.marking.findMany({
@@ -27,7 +50,7 @@ router.get("/", async (req, res) => {
         code: d.code,
         ref: d.ref,
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "markings"),
+        btn: makeButonEditDelete(d.id, "markings", true),
         type: d.type,
         fillColor: d.fillColor,
         fillOpacity: d.fillOpacity / 10,
