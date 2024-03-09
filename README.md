@@ -14,13 +14,12 @@ O projeto é desenvolvido utilizando as seguintes tecnologias:
 
 - Node.js
 - Express
-- Hbs (Handlebars) View Engine
 - Prisma ORM
 - SQLite (Banco de Dados Local para Desenvolvimento)
 - PostgreSQL (Banco de Dados em Produção)
 
 ### Frontend
-
+- Hbs (Handlebars) View Engine
 - Leaflet.js
 - Bootstrap
 - AdminLTE
