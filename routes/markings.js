@@ -59,6 +59,8 @@ router.get("/", async (req, res) => {
         geojson: d.geojson,
         bairro: d.bairro.nome,
         categoria: d.categoria.nome,
+        largura: d.largura,
+        comprimento: d.comprimento,
       };
     });
     return res.send({ data: data });
@@ -94,6 +96,8 @@ router.post("/", async (req, res) => {
       fillColor,
       fillOpacity,
       color,
+      largura,
+      comprimento,
       weight,
       id,
       categoriaId,
@@ -144,6 +148,8 @@ router.post("/", async (req, res) => {
           fillOpacity: Number(fillOpacity),
           color,
           weight: Number(weight),
+          largura,
+          comprimento,
         },
         where: { id },
       });

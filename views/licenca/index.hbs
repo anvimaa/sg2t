@@ -1,0 +1,103 @@
+<div class="row mb-2">
+    <div class="col">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h3 class="card-title">Licenças Registrados...</h3>
+            </div>
+            <div class="card-body">
+                <button id="btn-novo-licenca" type="button" class="btn btn-primary"><i class="fa fa-bell"></i>
+                    Registrar Nova Licença</button>
+                <hr />
+                <table style="width: 100%;" id="table-licenca" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Numero</th>
+                            <th>Ponto Mapeado</th>
+                            <th>Observação</th>
+                            <th>Registrado aos</th>
+                            <th> - </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Numero</th>
+                            <th>Ponto Mapeado</th>
+                            <th>Observação</th>
+                            <th>Registrado aos</th>
+                            <th> - </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-licenca">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="card-title" class="modal-title">Novo Registro</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-licenca" autocomplete="off">
+                    <input type="hidden" name="id" id="id" value="-1" />
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="descricao">Descrição</label>
+                            <input type="text" class="form-control" id="descricao" name="descricao" required
+                                placeholder="..." />
+                        </div>
+                        <div class="form-group">
+                            <label for="numero">Numero</label>
+                            <input type="text" class="form-control" id="numero" name="numero" required
+                                placeholder="..." />
+                        </div>
+                        <div class="form-group">
+                            <label for="code">Código do Ponto</label>
+                            <input type="text" class="form-control" id="code" name="code" required placeholder="..." />
+                        </div>
+                        <div class="form-group">
+                            <label for="observacao">Observações</label>
+                            <textarea class="form-control" name="observacao" id="observacao" cols="30"
+                                rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const columns = [
+        { data: "descricao", autowidth: true },
+        { data: "numero", autowidth: true },
+        { data: "marking.name", autowidth: true },
+        { data: "observacao", autowidth: true },
+        { data: "createdAt", autowidth: true },
+        { data: "btn", autowidth: true },
+    ];
+
+    $(function () {
+        loadTable("#table-licenca", "/licenca", columns);
+
+        $("#btn-novo-licenca").click((e) => {
+            $("#card-title").text("Novo Registro");
+            showModal("#modal-licenca");
+        });
+
+        submitForm("licenca")
+    });
+</script>

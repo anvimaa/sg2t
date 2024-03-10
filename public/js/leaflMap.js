@@ -261,7 +261,7 @@ function populeteSelect(id, url) {
 
 async function resetForm() {
   console.log("Reset Form");
-  $("#name").val("teste");
+  $("#name").val("");
   $("#code").val("");
   $("#ref").val("");
   $("#bairroId").val("").change();

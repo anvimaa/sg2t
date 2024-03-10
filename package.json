@@ -8,6 +8,7 @@
     "postinstall": "prisma generate && prisma db push",
     "build": "prisma generate && prisma db push",
     "prisma": "npx prisma generate && npx prisma db push",
+    "studio": "npx prisma studio",
     "dev": "nodemon server.js"
   },
   "keywords": [],
@@ -16,7 +17,9 @@
   "dependencies": {
     "@prisma/client": "^5.10.2",
     "@vercel/postgres": "^0.7.2",
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
+    "express-session": "^1.18.0",
     "hbs": "^4.2.0",
     "sqlite3": "^5.1.7"
   },

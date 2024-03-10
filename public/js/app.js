@@ -134,6 +134,31 @@ function submitForm(model) {
   });
 }
 
+function submitSimpleForm(model) {
+  $(`#form-${model}`).submit((e) => {
+    e.preventDefault();
+
+    var data = $(`#form-${model}`).serialize();
+    data = convertSerializedToJSON(data);
+
+    fetch(`/${model}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        alert(data.message);
+        clearForm(`#form-${model}`);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  });
+}
+
 function clearForm(form) {
   $("#id").val(-1);
   $(form)[0].reset();

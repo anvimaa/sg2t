@@ -1,4 +1,3 @@
-
 #map {
   height: 90vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -38,17 +37,6 @@
 #toggle-markings.visible {
   background-color: rgb(30, 70, 4);
 }
-
-/* Estilos para o formulário */
-#form {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.leaflet-popup-content-wrapper{
+.leaflet-popup-content-wrapper {
   min-width: 150px;
 }

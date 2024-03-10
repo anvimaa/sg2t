@@ -1,8 +1,10 @@
 <hr />
-<section class="mt-5">
+<a href="/markings/page" class="btn btn-default">
+    <i class="fa fa-arrow-alt-circle-left"></i> Voltar</a>
+<section class="mt-2">
     <div class="row">
         <div class="col-md-4">
-            <div class="card card-info">
+            <div class="card card-info collapsed-card">
                 <div class="card-header">
                     <h3 class="card-title">Informações Gerais do Ponto</h3>
                     <div class="card-tools">
@@ -13,12 +15,6 @@
                 </div>
                 <div class="card-body p-0">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>-</th>
-                                <th>-</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr>
                                 <td>Descrição do Ponto</td>
@@ -52,17 +48,41 @@
                                 <td>Comprimento</td>
                                 <td>{{marking.comprimento}}</td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card card-success collapsed-card">
+                <div class="card-header">
+                    <h3 class="card-title">Informações do Proprietadio</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table">
+                        <tbody>
                             <tr>
-                                <td>Nome do Proprietario</td>
+                                <td>Nome</td>
                                 <td>{{marking.utente.nome}}</td>
                             </tr>
                             <tr>
-                                <td>BI do Proprietario</td>
+                                <td>Nº de Identificação</td>
                                 <td>{{marking.utente.bi}}</td>
                             </tr>
                             <tr>
-                                <td>Tel/Email do Proprietario</td>
-                                <td>{{marking.utente.telefone}} - {{marking.utente.email}}</td>
+                                <td>Telefone</td>
+                                <td>{{marking.utente.telefone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{marking.utente.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Morada</td>
+                                <td>{{marking.utente.morada}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -70,7 +90,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card card-info">
+            <div class="card card-warning collapsed-card">
                 <div class="card-header">
                     <h3 class="card-title">Licenças associada</h3>
                     <div class="card-tools">
@@ -80,7 +100,7 @@
                     </div>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table">
+                    <table id="table-licenca" class="table">
                         <thead>
                             <tr>
                                 <th>Descricao</th>
@@ -100,82 +120,74 @@
                     </table>
                 </div>
             </div>
-            <div class="card card-secondary">
-                <div class="card-header">
-                    <h3 class="card-title">Associar Nova Licença</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <form id="form-ass-licenca" method="post">
-                    <input type="hidden" name="markingId" id="markingId" value="{{marking.id}}">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="descricao">Descrição da Licença</label>
-                            <input type="text" id="descricao" name="descricao" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="numero">Número da Licença</label>
-                            <input type="number" id="numero" name="numero" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="observacao">Observacao</label>
-                            <textarea id="observacao" name="observacao" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Associar</button>
-                        <button class="btn btn-danger" type="reset">Cancelar</button>
-                    </div>
-                </form>
-                <!-- /.card-body -->
-            </div>
         </div>
         <div class="col-md-4">
-            <div class="card card-primary">
+            <div class="card card-danger collapsed-card">
                 <div class="card-header">
-                    <h3 class="card-title">General</h3>
-
+                    <h3 class="card-title">Associar Licença</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label for="inputName">Project Name</label>
-                        <input type="text" id="inputName" class="form-control" value="AdminLTE" />
-                    </div>
-                    <div class="form-group">
-                        <label for="inputDescription">Project Description</label>
-                        <textarea id="inputDescription" class="form-control" rows="4">Raw
-              denim you probably haven't heard of them jean shorts Austin.
-              Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher
-              synth. Cosby sweater eu banh mi, qui irure terr.</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputStatus">Status</label>
-                        <select id="inputStatus" class="form-control custom-select">
-                            <option disabled>Select one</option>
-                            <option>On Hold</option>
-                            <option>Canceled</option>
-                            <option selected>Success</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputClientCompany">Client Company</label>
-                        <input type="text" id="inputClientCompany" class="form-control" value="Deveint Inc" />
-                    </div>
-                    <div class="form-group">
-                        <label for="inputProjectLeader">Project Leader</label>
-                        <input type="text" id="inputProjectLeader" class="form-control" value="Tony Chicken" />
-                    </div>
+                <div class="card-body p-0">
+                    <form id="form-licenca" autocomplete="off" action="/licenca" method="post">
+                        <input type="hidden" name="code" id="code" value="{{marking.code}}">
+                        <input type="hidden" name="id" id="id" value="-1">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="descricao">Descrição da Licença</label>
+                                <input type="text" id="descricao" name="descricao" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="numero">Número da Licença</label>
+                                <input type="number" id="numero" name="numero" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="observacao">Observacao</label>
+                                <textarea id="observacao" name="observacao" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary" type="submit">Associar</button>
+                            <button class="btn btn-danger" type="reset">Limpar</button>
+                        </div>
+                    </form>
                 </div>
-                <!-- /.card-body -->
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    $(function () {
+        $(`#form-licenca`).submit((e) => {
+            e.preventDefault();
+
+            var data = $(`#form-licenca`).serialize();
+            data = convertSerializedToJSON(data);
+
+            fetch(`/licenca`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }).then((response) => response.json())
+                .then((res) => {
+                    //alert("Licenca associada com sucesso");
+                    clearForm(`#form-licenca`);
+
+                    var novaLinha = `<tr><td>${data.descricao}</td>
+                    <td>${data.numero}</td>
+                    <td>${data.observacao}</td></tr>`;
+
+                    $('#table-licenca tbody').append(novaLinha);
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+    });
+</script>

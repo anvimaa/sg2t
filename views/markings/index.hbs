@@ -52,17 +52,30 @@
           <div class="card-body">
             <div class="form-group">
               <label for="name">Descrição do Local</label>
-              <input type="text" class="form-control" id="name" name="name" autocomplete="off" placeholder=" ..."
-                required />
+              <input type="text" class="form-control" id="name" name="name" autocomplete="off" required />
             </div>
             <div class="form-group">
               <label for="code">Código</label>
-              <input type="text" autocomplete="off" class="form-control" id="code" name="code" placeholder=" ..."
-                required />
+              <input type="text" autocomplete="off" class="form-control" id="code" name="code" required />
             </div>
             <div class="form-group">
               <label for="ref">Referência</label>
-              <input type="text" class="form-control" autocomplete="off" id="ref" name="ref" placeholder=" ..." />
+              <input type="text" class="form-control" autocomplete="off" id="ref" name="ref" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label for="largura">Largura em Metros</label>
+                <input type="number" class="form-control" name="largura" id="largura" required />
+              </div>
+            </div>
+            <div class="col col-md-6">
+              <div class="form-group">
+                <label for="comprimento">Comprimento em Metros</label>
+                <input type="number" class="form-control" name="comprimento" id="comprimento" required />
+              </div>
             </div>
           </div>
 
@@ -73,27 +86,26 @@
             <div class="col col-md-3">
               <div class="form-group">
                 <label for="code">Preenchimento</label>
-                <input type="color" class="form-control" name="fillColor" id="fillColor" required placeholder=" ..." />
+                <input type="color" class="form-control" name="fillColor" id="fillColor" required />
               </div>
             </div>
             <div class="col col-md-3">
               <div class="form-group">
                 <label for="code">Opacidade</label>
-                <input type="range" min="1" max="10" class="form-control" name="fillOpacity" id="fillOpacity" required
-                  placeholder=" ..." />
+                <input type="range" min="1" max="10" class="form-control" name="fillOpacity" id="fillOpacity"
+                  required />
               </div>
             </div>
             <div class="col col-md-3">
               <div class="form-group">
                 <label for="ref">Borda</label>
-                <input type="color" class="form-control" name="color" id="color" required placeholder=" ..." />
+                <input type="color" class="form-control" name="color" id="color" required />
               </div>
             </div>
             <div class="col col-md-3">
               <div class="form-group">
                 <label for="code">Largura</label>
-                <input type="range" min="1" value="3" max="5" class="form-control" name="weight" id="weight" required
-                  placeholder=" ..." />
+                <input type="range" min="1" value="3" max="5" class="form-control" name="weight" id="weight" required />
               </div>
             </div>
           </div>
