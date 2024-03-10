@@ -1,3 +1,10 @@
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top",
+  showConfirmButton: false,
+  timer: 5000,
+});
+
 const columnsBairro = [
   { data: "nome", autowidth: true },
   { data: "descricao", autowidth: true },
@@ -178,14 +185,13 @@ function convertSerializedToJSON(serializedData) {
   return jsonData;
 }
 
-function onDelete(id, model) {
+function onDelete(id, model, refresh = "0") {
   if (confirm(`Tens certeza que pretendes deletrar este registro?`)) {
     fetch(`/${model}/${id}`, {
       method: "DELETE",
     })
       .then((response) => {
-        // alert("Deletado com sucesso");
-        refreshTable(`#table-${model}`);
+        if (refresh == "0") refreshTable(`#table-${model}`);
       })
       .catch((error) => {
         console.error("Error:", error);

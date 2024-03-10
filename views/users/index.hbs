@@ -1,0 +1,98 @@
+<div class="row mb-2">
+    <div class="col">
+        <div class="card">
+            <div class="card-header justify-content-between">
+                <h3 class="card-title">Usuarios...</h3>
+            </div>
+            <div class="card-body">
+                <button id="btn-novo-users" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>
+                    Registrar Usuario</button>
+                <hr />
+                <table style="width: 100%;" id="table-users" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nome do Usuario</th>
+                            <th>Ultimo Acesso</th>
+                            <th>Registrado aos</th>
+                            <th class="text-center"> Deletar </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each users}}
+                        <tr>
+                            <td>{{this.nome}}</td>
+                            <td>{{this.lastLogin}}</td>
+                            <td>{{this.createdAt}}</td>
+                            <td class="text-center">
+                                <button onclick="onDelete('{{this.id}}','users','1')" class="btn btn-danger"> <i
+                                        class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nome do Usuario</th>
+                            <th>Ultimo Acesso</th>
+                            <th>Registrado aos</th>
+                            <th class="text-center"> Deletar </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-users">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="card-title" class="modal-title">Novo Usuario</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-users" autocomplete="off" method="post" action="/users">
+                    <input type="hidden" name="id" id="id" value="-1" />
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Usuario</label>
+                            <input type="text" class="form-control" id="username" name="username" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="code">Senha</label>
+                            <input type="password" class="form-control" id="password" name="password" required />
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" name="isAdmin" id="isAdmin">
+                                <label for="isAdmin" class="custom-control-label">Administrador</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        //loadTable("#table-users", "/users", columns);
+        $("#btn-novo-users").click((e) => {
+            $("#card-title").text("Novo Registro");
+            showModal("#modal-users");
+        });
+        //submitForm("users")
+    });
+</script>

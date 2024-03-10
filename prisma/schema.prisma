@@ -6,17 +6,18 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  // provider  = "postgresql"
+  // url       = env("POSTGRES_PRISMA_URL")
+  // directUrl = env("POSTGRES_URL_NON_POOLING")
 
-  // provider = "sqlite"
-  // url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+  lastLogin DateTime @default(now())
   updatedAt DateTime @updatedAt
   nome      String?
   username  String   @unique
@@ -44,30 +45,31 @@ model Categoria {
 
 // Representa o espaço ou terreno
 model Marking {
-  id          Int        @id @default(autoincrement())
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  type        String
-  geojson     String
-  name        String
-  code        String     @unique
-  fillColor   String
-  fillOpacity Int
-  color       String
-  weight      Int
-  bairroId    Int
-  categoriaId Int
-  bairro      Bairro     @relation(fields: [bairroId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  categoria   Categoria? @relation(fields: [categoriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  utenteId    Int?
-  utente      Utente?    @relation(fields: [utenteId], references: [id])
-  largura     Decimal?
-  comprimento Decimal?
-  estado      String?    @default("Pendente")
-  titulo      String?
-  licenca     String?
-  ref         String?
-  licencas    Licenca[]
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  type         String
+  geojson      String
+  name         String
+  code         String     @unique
+  fillColor    String
+  fillOpacity  Int
+  color        String
+  weight       Int
+  bairroId     Int
+  categoriaId  Int
+  bairro       Bairro     @relation(fields: [bairroId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoria    Categoria? @relation(fields: [categoriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  utenteId     Int?
+  utente       Utente?    @relation(fields: [utenteId], references: [id])
+  largura      Decimal?
+  comprimento  Decimal?
+  estado       String?    @default("Pendente")
+  titulo       String?
+  licenca      String?
+  ref          String?
+  isAssociated Boolean    @default(false)
+  licencas     Licenca[]
 }
 
 model Utente {

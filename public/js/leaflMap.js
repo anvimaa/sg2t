@@ -40,12 +40,24 @@ let baseLayers = {
 // Apresentar o mapa
 googleSat.addTo(map);
 
+// Export Button
+var showHome = `<a href="/" title="Voltar" type="button" class="btn btn-default btn-sm text-light">
+<i class="fa fa-home"></i> Pagina Inicial</a>`;
+var showHomeButton = new L.Control({ position: "bottomleft" });
+showHomeButton.onAdd = function (map) {
+  this._div = L.DomUtil.create("div");
+  this._div.innerHTML = showHome;
+  return this._div;
+};
+showHomeButton.addTo(map);
+
 // Adicionar controle de camadas ao mapa
 L.control.layers(baseLayers).addTo(map);
 
 // Leaflet Draw
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
+
 var drawControl = new L.Control.Draw({
   edit: {
     featureGroup: drawnItems,
@@ -71,16 +83,16 @@ map.on("draw:created", function (e) {
 });
 
 // Map Title
-var title = new L.Control({ position: "bottomleft" });
+var title = new L.Control({ position: "bottomright" });
 title.onAdd = function (map) {
   this._div = L.DomUtil.create("div", "info");
   this.update();
   return this._div;
 };
 title.update = function () {
-  this._div.innerHTML = `SySInfra, Administração Municipal do Uíe<br>
+  this._div.innerHTML = `GIS-AMU, Administração Municipal do Uíge<br>
     Serviços Técnicos e Infra-Estruturas<br>
-    &copy;AnvimaTech todos direitos reservados`;
+    &copy; 2024 Anvima Labs todos direitos reservados`;
 };
 title.addTo(map);
 
@@ -260,7 +272,6 @@ function populeteSelect(id, url) {
 }
 
 async function resetForm() {
-  console.log("Reset Form");
   $("#name").val("");
   $("#code").val("");
   $("#ref").val("");
@@ -274,6 +285,7 @@ async function resetForm() {
 }
 
 $(function () {
+  $(".select2").select2();
   populeteSelect("#bairroId", "/bairro");
   populeteSelect("#categoriaId", "/categoria");
   loadMap();

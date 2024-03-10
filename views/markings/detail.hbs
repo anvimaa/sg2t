@@ -1,6 +1,7 @@
 <hr />
 <a href="/markings/page" class="btn btn-default">
     <i class="fa fa-arrow-alt-circle-left"></i> Voltar</a>
+
 <section class="mt-2">
     <div class="row">
         <div class="col-md-4">
@@ -54,14 +55,15 @@
             </div>
             <div class="card card-success collapsed-card">
                 <div class="card-header">
-                    <h3 class="card-title">Informações do Proprietadio</h3>
+                    <h3 class="card-title">Informações do Proprietario</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                             <i class="fas fa-minus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-2">
+                    {{#if marking.isAssociated}}
                     <table class="table">
                         <tbody>
                             <tr>
@@ -86,6 +88,20 @@
                             </tr>
                         </tbody>
                     </table>
+                    {{else}}
+                    <p class="text-center text-red">Associar Proprietario</p>
+                    <form id="form-prop" autocomplete="off">
+                        <input type="hidden" name="id" id="id" value="{{marking.id}}">
+                        <div class="form-group">
+                            <label for="bi">Nº de Identificação do Proprietario</label>
+                            <input type="text" id="bi" name="bi" class="form-control" required />
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-primary" type="submit">Associar</button>
+                            <button class="btn btn-danger" type="reset">Limpar</button>
+                        </div>
+                    </form>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -184,10 +200,37 @@
                     <td>${data.observacao}</td></tr>`;
 
                     $('#table-licenca tbody').append(novaLinha);
+                    Toast.fire({
+                        icon: "success",
+                        title: "Associado com Sucesso",
+                    });
                 })
                 .catch((error) => {
                     alert(error.message);
                 });
         });
+
+        $("#form-prop").submit((e) => {
+            e.preventDefault()
+
+            var data = $(`#form-prop`).serialize();
+            data = convertSerializedToJSON(data);
+
+            fetch("/markings/associate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }).then((res) => res.json()).then((res) => {
+                Toast.fire({
+                    icon: "success",
+                    title: res.message,
+                });
+            }).catch((e) => {
+                alert(e.message)
+            })
+
+        })
     });
 </script>

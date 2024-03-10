@@ -10,6 +10,8 @@ const bairroRoutes = require("./bairro");
 const categoriaRoutes = require("./categoria");
 const utenteRoutes = require("./utente");
 const licencaRoute = require("./licenca");
+const usersRoute = require("./user");
+const settingsRoute = require("./settings");
 
 // Middleware para verificar se o usuário está autenticado
 const isAuthenticated = (req, res, next) => {
@@ -80,7 +82,9 @@ router.get("/", isAuthenticated, (req, res) => {
 
 // Rota para ver o mapa
 router.get("/map", isAuthenticated, (req, res) => {
-  res.render("map");
+  res.render("map", {
+    layout: false,
+  });
 });
 
 // Rota para página sobre
@@ -89,10 +93,12 @@ router.get("/sobre", isAuthenticated, (req, res) => {
 });
 
 // Outras Rotas...
-router.use("/markings", markingsRoutes);
+router.use("/markings", isAuthenticated, markingsRoutes);
 router.use("/bairro", isAuthenticated, bairroRoutes);
 router.use("/categoria", isAuthenticated, categoriaRoutes);
 router.use("/utente", isAuthenticated, utenteRoutes);
-router.use("/licenca", licencaRoute);
+router.use("/licenca", isAuthenticated, licencaRoute);
+router.use("/users", isAuthenticated, usersRoute);
+router.use("/settings", isAuthenticated, settingsRoute);
 
 module.exports = router;

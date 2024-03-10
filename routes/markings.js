@@ -203,7 +203,26 @@ router.delete("/:id", async (req, res) => {
 
     res.json({ message: "Marking deletado com sucesso" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/associate", async (req, res) => {
+  try {
+    let { bi, id } = req.body;
+    id = Number(id);
+    const utente = await prisma.utente.findUnique({ where: { bi } });
+    const marking = await prisma.marking.findUnique({ where: { id } });
+    if (!utente || !marking) {
+      return res.status(404).json({ message: "Utente Inexistente!" });
+    }
+    await prisma.marking.update({
+      data: { utenteId: utente.id, isAssociated: true },
+      where: { id },
+    });
+    return res.json({ message: `Associado com sucesso` });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
