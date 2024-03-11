@@ -27,7 +27,6 @@ router.get("/detail/:id", async (req, res) => {
     if (!marking) {
       return res.status(404).redirect("/");
     }
-    console.log(marking);
     res.render("markings/detail", { marking });
   } catch (error) {
     res.status(500).json({ error: error.message });

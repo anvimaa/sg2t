@@ -24,6 +24,7 @@ const isAuthenticated = (req, res, next) => {
 // Middleware para adicionar o usuario em locas
 router.use((req, res, next) => {
   res.locals.user = req.session.user || null;
+  res.locals.theme = "dark-mode";
   next();
 });
 
@@ -40,6 +41,10 @@ router.post("/login", async (req, res) => {
   const user = await prisma.user.findUnique({ where: { username } });
 
   if (user && (await bcrypt.compare(password, user.password))) {
+    await prisma.user.update({
+      where: { username },
+      data: { lastLogin: new Date(Date.now()) },
+    });
     req.session.user = user;
     res.redirect("/");
   } else {

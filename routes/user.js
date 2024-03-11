@@ -43,11 +43,12 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = Number(req.params.id);
-    const exist = await prisma.user.findFirst({
+    const user = await prisma.user.findFirst({
       where: { id },
     });
-    if (exist) {
-      return res.json(exist);
+    if (user) {
+      delete user.password;
+      return res.json(user);
     }
     return res.status(404).json({ error: "user inexistente" });
   } catch (error) {
