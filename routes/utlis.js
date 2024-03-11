@@ -61,6 +61,8 @@ async function logOperation(
   }
 }
 
+let a = 6;
+
 function getCurrentDate() {
   const now = new Date();
   const year = now.getFullYear();
