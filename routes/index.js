@@ -3,6 +3,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 const prisma = require("../db");
+const { isAuthenticated } = require("./midlewares");
 
 // Importar as rotas
 const markingsRoutes = require("./markings");
@@ -12,14 +13,6 @@ const utenteRoutes = require("./utente");
 const licencaRoute = require("./licenca");
 const usersRoute = require("./user");
 const settingsRoute = require("./settings");
-
-// Middleware para verificar se o usuário está autenticado
-const isAuthenticated = (req, res, next) => {
-  if (req.session.user) {
-    return next();
-  }
-  res.redirect("/login");
-};
 
 // Middleware para adicionar o usuario em locas
 router.use(async (req, res, next) => {
@@ -97,7 +90,7 @@ router.get("/logout", (req, res) => {
 });
 
 // Rota principal
-router.get("/", (req, res) => {
+router.get("/", isAuthenticated, (req, res) => {
   res.render("index");
 });
 
@@ -120,6 +113,6 @@ router.use("/categoria", isAuthenticated, categoriaRoutes);
 router.use("/utente", isAuthenticated, utenteRoutes);
 router.use("/licenca", isAuthenticated, licencaRoute);
 router.use("/users", isAuthenticated, usersRoute);
-router.use("/settings", settingsRoute);
+router.use("/settings", isAuthenticated, settingsRoute);
 
 module.exports = router;

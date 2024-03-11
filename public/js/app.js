@@ -242,3 +242,34 @@ function onEdit(id, model) {
       console.error("Error:", error);
     });
 }
+
+function submitSimpleForm(form, url) {
+  $(form).submit((e) => {
+    e.preventDefault();
+
+    var data = $(form).serialize();
+    data = convertSerializedToJSON(data);
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        Toast.fire({
+          icon: res.type,
+          title: res.message,
+        });
+        if (res.type == "success") $(form)[0].reset();
+      })
+      .catch((e) => {
+        Toast.fire({
+          icon: "error",
+          title: e.message,
+        });
+      });
+  });
+}
