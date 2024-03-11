@@ -22,9 +22,25 @@ const isAuthenticated = (req, res, next) => {
 };
 
 // Middleware para adicionar o usuario em locas
-router.use((req, res, next) => {
+router.use(async (req, res, next) => {
+  let settings = await prisma.settings.findFirst({ where: { id: 1 } });
+
+  let configs = {
+    theme: settings.theme,
+    sidebar: settings.theme == "dark-mode" ? "sidebar-dark" : "sidebar-light",
+    navbar: settings.theme == "dark-mode" ? "navbar-dark" : "navbar-light",
+    appName: settings.appName,
+  };
+
   res.locals.user = req.session.user || null;
-  res.locals.theme = "dark-mode";
+  res.locals.theme = settings.theme || "dark-mode";
+  res.locals.sidebar =
+    settings.theme == "dark-mode"
+      ? "sidebar-dark-primary"
+      : "sidebar-light-primary";
+  res.locals.navbar =
+    settings.theme == "dark-mode" ? "navbar-dark" : "navbar-light";
+  res.locals.appName = settings.appName;
   next();
 });
 
