@@ -12,4 +12,15 @@ router.get("/page", async (req, res) => {
   }
 });
 
+router.get("/update-theme", async (req, res) => {
+  try {
+    const settings = await prisma.settings.findFirst({ where: { id: 1 } });
+    const theme = settings.theme == "dark-mode" ? "light-mode" : "dark-mode";
+    await prisma.settings.update({ data: { theme }, where: { id: 1 } });
+    return res.json({ theme });
+  } catch (error) {
+    return;
+  }
+});
+
 module.exports = router;

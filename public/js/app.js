@@ -64,6 +64,33 @@ $(function () {
     showModal("#modal-utente");
   });
 
+  $("#btn-theme").click((e) => {
+    fetch("/settings/update-theme")
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.theme == "light-mode") {
+          $("body").removeClass("dark-mode");
+          $("#sidebar").removeClass("sidebar-dark-primary");
+          $("#navbar").removeClass("navbar-dark");
+
+          $("body").addClass("light-mode");
+          $("#sidebar").addClass("sidebar-light-primary");
+          $("#navbar").addClass("navbar-light");
+        } else {
+          $("body").removeClass("light-mode");
+          $("#sidebar").removeClass("sidebar-light-primary");
+          $("#navbar").removeClass("navbar-light");
+
+          $("body").addClass("dark-mode");
+          $("#sidebar").addClass("sidebar-dark-primary");
+          $("#navbar").addClass("navbar-dark");
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  });
+
   // Submit Forms
   submitForm("bairro");
   submitForm("markings");

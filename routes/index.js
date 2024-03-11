@@ -97,7 +97,7 @@ router.get("/logout", (req, res) => {
 });
 
 // Rota principal
-router.get("/", isAuthenticated, (req, res) => {
+router.get("/", (req, res) => {
   res.render("index");
 });
 
@@ -120,6 +120,6 @@ router.use("/categoria", isAuthenticated, categoriaRoutes);
 router.use("/utente", isAuthenticated, utenteRoutes);
 router.use("/licenca", isAuthenticated, licencaRoute);
 router.use("/users", isAuthenticated, usersRoute);
-router.use("/settings", isAuthenticated, settingsRoute);
+router.use("/settings", settingsRoute);
 
 module.exports = router;
