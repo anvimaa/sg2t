@@ -4,8 +4,10 @@ const {
   makeButonEditDelete,
   formatDate,
   logOperation,
+  deleteFile,
   formatDateTime,
 } = require("./utlis");
+const { upload } = require("./midlewares");
 const prisma = require("../db");
 
 router.get("/page", async (req, res) => {
@@ -34,7 +36,7 @@ router.get("/", async (req, res) => {
         foto: d.foto,
         nascimento: d.nascimento.toLocaleDateString("pt-BR", formatDate),
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "utente", false, true),
+        btn: makeButonEditDelete(d.id, "utente", true, true),
         markings: d.markings,
       };
     });
@@ -56,37 +58,46 @@ router.get("/:id", async (req, res) => {
       return res.json(utente);
     }
 
-    return res.status(404).json({ error: "utente inexistente" });
+    return res.status(404).json({ error: "utente inutenteente" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", upload.single("foto"), async (req, res) => {
   try {
     let { nome, bi, telefone, email, nascimento, genero, morada } = req.body;
     let data = { nome, bi, telefone, email, nascimento, genero, morada };
     data.nascimento = new Date(data.nascimento).toISOString();
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
     let id = Number(req.body.id);
     let message = "";
     if (id == -1) {
-      const exist = await prisma.utente.findFirst({
+      const utente = await prisma.utente.findUnique({
         where: { bi: data.bi, email: data.email, telefone: data.telefone },
       });
-      if (exist) {
+      if (utente) {
         return res
           .status(400)
-          .json({ message: "Ja existe um utente com esses dados" });
+          .json({ message: "Ja utentee um utente com esses dados" });
       }
-      await prisma.utente.create({ data });
 
+      data.foto = imagePath || "/dist/img/avatar.png";
+      await prisma.utente.create({ data });
       message = "Cadastrado com sucesso";
     } else {
-      const exist = await prisma.utente.findFirst({ where: { id } });
+      const utente = await prisma.utente.findUnique({ where: { id } });
 
-      if (!exist) {
-        return res.status(404).json({ message: "utente inexistente" });
+      if (!utente) {
+        return res.status(404).json({ message: "utente inutenteente" });
       }
+
+      if (imagePath) {
+        data.foto = imagePath;
+        await deleteFile(utente.foto);
+      }
+
       await prisma.utente.update({
         data,
         where: { id },
@@ -104,10 +115,10 @@ router.put("/:id", async (req, res) => {
     const id = Number(req.params.id);
 
     const data = req.body;
-    const exist = await prisma.utente.findFirst({ where: { id } });
+    const utente = await prisma.utente.findUnique({ where: { id } });
 
-    if (!exist) {
-      return res.status(404).json({ error: "utente inexistente" });
+    if (!utente) {
+      return res.status(404).json({ error: "utente inutenteente" });
     }
     await prisma.utente.update({ data, where: { id } });
 
@@ -120,12 +131,12 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     let id = Number(req.params.id);
-    const exist = await prisma.utente.findFirst({ where: { id } });
+    const utente = await prisma.utente.findUnique({ where: { id } });
 
-    if (!exist) {
-      return res.status(404).json({ error: "utente inexistente" });
+    if (!utente) {
+      return res.status(404).json({ error: "utente inutenteente" });
     }
-
+    await deleteFile(utente.foto);
     await prisma.utente.delete({ where: { id } });
 
     res.json({ message: "utente deletado com sucesso" });
@@ -157,7 +168,6 @@ router.get("/detail/:id", async (req, res) => {
       "pt",
       formatDateTime
     );
-    console.log(utente);
     res.render("utente/details", { utente });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { makeButonEditDelete, formatDate } = require("./utlis");
+const { isAdmin } = require("./midlewares");
 const prisma = require("../db");
 
 router.get("/page", async (req, res) => {
@@ -161,7 +162,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   try {
     let id = Number(req.params.id);
     let { name, code, ref, fillColor, fillOpacity, color, weight } = req.body;
@@ -214,6 +215,11 @@ router.post("/associate", async (req, res) => {
     const marking = await prisma.marking.findUnique({ where: { id } });
     if (!utente || !marking) {
       return res.status(404).json({ message: "Utente Inexistente!" });
+    }
+    if (marking.isAssociated) {
+      return res
+        .status(400)
+        .json({ message: "Esta marcação já está associada!" });
     }
     await prisma.marking.update({
       data: { utenteId: utente.id, isAssociated: true },

@@ -83,7 +83,7 @@ model Utente {
   genero     String?
   nascimento DateTime?
   morada     String?
-  foto       String?
+  foto       String?   @default("/dist/img/avatar.png")
   telefone   String?   @unique
   email      String?   @unique
   markings   Marking[]

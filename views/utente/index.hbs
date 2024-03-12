@@ -48,9 +48,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-utente" autocomplete="off">
+                <form id="form-utente" autocomplete="off" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="id" value="-1" />
-                    <input type="hidden" name="foto" id="foto" value="/dist/image/avatar.png" />
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nome">Nome Completo</label>
@@ -104,6 +103,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="foto">Foto</label>
+                                    <input type="file" class="form-control" name="foto" id="foto" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-footer">
@@ -117,7 +124,7 @@
 </div>
 
 <script>
-    const columnsUtente = [
+    const columns = [
         { data: "nome", autowidth: true },
         { data: "bi", autowidth: true },
         { data: "genero", autowidth: true },
@@ -128,13 +135,13 @@
     ];
 
     $(function () {
-        loadTable("#table-utente", "/utente", columnsUtente);
-        submitForm("utente");
+        loadTable("#table-utente", "/utente", columns);
 
         $("#btn-novo-utente").click((e) => {
             $("#card-title").text("Novo Registro");
             showModal("#modal-utente");
         });
+        submitFileForm("utente");
     })
 
     function onEditeModel(id) {
@@ -145,7 +152,13 @@
             .then((response) => response.json())
             .then((data) => {
                 $("#nome").val(data.nome)
+                $("#id").val(data.id)
+                $("#genero").val(data.genero).change()
                 $("#telefone").val(data.telefone)
+                $("#email").val(data.email)
+                $("#morada").val(data.morada)
+                $("#bi").val(data.bi)
+                $("#nascimento").val(data.nascimento)
                 showModal(`#modal-utente`);
             })
             .catch((error) => {

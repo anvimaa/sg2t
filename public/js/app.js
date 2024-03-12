@@ -256,3 +256,26 @@ function submitSimpleForm(form, url) {
       });
   });
 }
+
+function submitFileForm(model) {
+  $(`#form-${model}`).submit((e) => {
+    e.preventDefault();
+
+    const formData = new FormData($(`#form-${model}`)[0]);
+
+    fetch(`/${model}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // alert(data.message);
+        $(`#modal-${model}`).modal("hide");
+        refreshTable(`#table-${model}`);
+        clearForm(`#form-${model}`);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  });
+}

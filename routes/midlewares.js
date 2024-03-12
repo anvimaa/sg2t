@@ -1,6 +1,7 @@
 const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const { logOperation } = require("./utlis");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,7 +25,20 @@ const isAuthenticated = (req, res, next) => {
   res.redirect("/login");
 };
 
+const isAdmin = (req, res, next) => {
+  if (req.session.user.isAdmin) {
+    next();
+  }
+  logOperation(
+    `Acesso negado para ${req.session.user.nome}`,
+    req.session.user.id,
+    false
+  );
+  res.redirect("/");
+};
+
 module.exports = {
   upload,
   isAuthenticated,
+  isAdmin,
 };
