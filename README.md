@@ -19,6 +19,7 @@ O projeto é desenvolvido utilizando as seguintes tecnologias:
 - PostgreSQL (Banco de Dados em Produção)
 
 ### Frontend
+
 - Hbs (Handlebars) View Engine
 - Leaflet.js
 - Bootstrap
@@ -56,3 +57,6 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 ## Licença
 
 Este projeto é licenciado sob a [Licença MIT](LICENSE). Sinta-se livre para utilizar, modificar e distribuir conforme necessário.
+
+git config --global user.email "anvimaa@gmail.com"
+git config --global user.name "anvimaa"
