@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
         email: d.email,
         bi: d.bi,
         foto: d.foto,
-        nascimento: d.nascimento.toLocaleDateString("pt-BB", formatDate),
+        nascimento: d.nascimento.toLocaleDateString("pt-BR", formatDate),
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
         btn: makeButonEditDelete(d.id, "utente"),
         markings: d.markings,
@@ -42,17 +42,13 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = Number(req.params.id);
-    const exist = await prisma.utente.findFirst({
+    const utente = await prisma.utente.findUnique({
       where: { id },
-      include: { markings: true },
     });
 
-    if (exist) {
-      exist.nascimento = exist.nascimento.toLocaleDateString(
-        "pt-BR",
-        formatDate
-      );
-      return res.json(exist);
+    if (utente) {
+      utente.nascimento = "2020-05-05";
+      return res.json(utente);
     }
 
     return res.status(404).json({ error: "utente inexistente" });
@@ -65,6 +61,7 @@ router.post("/", async (req, res) => {
   try {
     let { nome, bi, telefone, email, nascimento, genero, morada } = req.body;
     let data = { nome, bi, telefone, email, nascimento, genero, morada };
+    data.nascimento = new Date(data.nascimento).toISOString();
     let id = Number(req.body.id);
     let message = "";
     if (id == -1) {
@@ -78,7 +75,7 @@ router.post("/", async (req, res) => {
       }
 
       data.foto = "Teste";
-      data.nascimento = new Date(data.nascimento).toISOString();
+
       await prisma.utente.create({ data });
 
       message = "Cadastrado com sucesso";

@@ -28,16 +28,6 @@ const columnscategoria = [
   { data: "btn", autowidth: true },
 ];
 
-const columnsUtente = [
-  { data: "nome", autowidth: true },
-  { data: "bi", autowidth: true },
-  { data: "genero", autowidth: true },
-  { data: "email", autowidth: true },
-  { data: "telefone", autowidth: true },
-  { data: "createdAt", autowidth: true },
-  { data: "btn", autowidth: true },
-];
-
 $(function () {
   //Plugins
   $(".select2").select2();
@@ -46,7 +36,6 @@ $(function () {
   loadTable("#table-bairro", "/bairro", columnsBairro);
   loadTable("#table-markings", "/markings", columnsMarkings);
   loadTable("#table-categoria", "/categoria", columnscategoria);
-  loadTable("#table-utente", "/utente", columnsUtente);
 
   // Bottons Clicks
   $("#btn-novo-bairro").click((e) => {
@@ -57,11 +46,6 @@ $(function () {
   $("#btn-novo-categoria").click((e) => {
     $("#card-title").text("Novo Registro");
     showModal("#modal-categoria");
-  });
-
-  $("#btn-novo-utente").click((e) => {
-    $("#card-title").text("Novo Registro");
-    showModal("#modal-utente");
   });
 
   $("#btn-theme").click((e) => {
@@ -95,7 +79,6 @@ $(function () {
   submitForm("bairro");
   submitForm("markings");
   submitForm("categoria");
-  submitForm("utente");
 });
 
 function loadTable(table, url, columns) {

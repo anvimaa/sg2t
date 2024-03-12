@@ -70,7 +70,7 @@
                         <div class="row">
                             <div class="col col-md-6">
                                 <div class="form-group">
-                                    <label id="nascimento">Data de Nascimento</label>
+                                    <label for="nascimento">Data de Nascimento</label>
                                     <input type="date" class="form-control" id="nascimento" name="nascimento"
                                         placeholder="dd/mm/aaaa" required />
                                 </div>
@@ -91,14 +91,14 @@
                         <div class="row">
                             <div class="col col-md-6">
                                 <div class="form-group">
-                                    <label id="telefone">Telefone</label>
+                                    <label for="telefone">Telefone</label>
                                     <input type="text" class="form-control" id="telefone" name="telefone" placeholder=""
                                         required />
                                 </div>
                             </div>
                             <div class="col col-md-6">
                                 <div class="form-group">
-                                    <label id="email">E-mail</label>
+                                    <label for="email">E-mail</label>
                                     <input required type="text" class="form-control" id="email" name="email"
                                         placeholder="" />
                                 </div>
@@ -115,3 +115,42 @@
         </div>
     </div>
 </div>
+
+<script>
+    const columnsUtente = [
+        { data: "nome", autowidth: true },
+        { data: "bi", autowidth: true },
+        { data: "genero", autowidth: true },
+        { data: "email", autowidth: true },
+        { data: "telefone", autowidth: true },
+        { data: "createdAt", autowidth: true },
+        { data: "btn", autowidth: true },
+    ];
+
+    $(function () {
+        loadTable("#table-utente", "/utente", columnsUtente);
+        submitForm("utente");
+
+        $("#btn-novo-utente").click((e) => {
+            $("#card-title").text("Novo Registro");
+            showModal("#modal-utente");
+        });
+    })
+
+    function onEditeModel(id) {
+        $("#card-title").text("Editar Utente");
+        fetch(`/utente/${id}`, {
+            method: "GET",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                $("#nome").val(data.nome)
+                $("#telefone").val(data.telefone)
+                showModal(`#modal-utente`);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
+
+</script>

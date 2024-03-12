@@ -86,15 +86,20 @@ let formatDateTime = {
   minute: "numeric",
 };
 
-function makeButonEditDelete(id = "", model = "", detail = false) {
+function makeButonEditDelete(id, model, constumnEdit = false, detail = false) {
   let btn = "";
   if (detail) {
     btn += `<a class="btn btn-info" href="/${model}/detail/${id}">
     <i class="fa fa-info"></i></a>-`;
   }
-  btn += `<button class="btn btn-warning"onclick="onEdit('${id}','${model}')">
-        <i class="fa fa-pen"></i></button>-
-        <button onclick="onDelete('${id}','${model}')" class="btn btn-danger">
+  if (constumnEdit) {
+    btn += `<button class="btn btn-warning"onclick="onEditeModel('${id}')">
+        <i class="fa fa-pen"></i></button>-`;
+  } else {
+    btn += `<button class="btn btn-warning"onclick="onEdit('${id}','${model}')">
+        <i class="fa fa-pen"></i></button>-`;
+  }
+  btn += `<button onclick="onDelete('${id}','${model}')" class="btn btn-danger">
         <i class="fa fa-trash"></i></button>`;
   return btn;
 }

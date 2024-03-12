@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const router = express.Router();
 const prisma = require("../db");
 const { isAuthenticated } = require("./midlewares");
+const { logOperation } = require("./utlis");
 
 // Importar as rotas
 const markingsRoutes = require("./markings");
@@ -55,6 +56,7 @@ router.post("/login", async (req, res) => {
       data: { lastLogin: new Date(Date.now()) },
     });
     req.session.user = user;
+    logOperation(`Sessão iniciada por: ${user.nome}`, user.id);
     res.redirect("/");
   } else {
     res.redirect("/login");
@@ -90,7 +92,7 @@ router.get("/logout", (req, res) => {
 });
 
 // Rota principal
-router.get("/", isAuthenticated, (req, res) => {
+router.get("/", (req, res) => {
   res.render("index");
 });
 
@@ -110,7 +112,7 @@ router.get("/sobre", isAuthenticated, (req, res) => {
 router.use("/markings", isAuthenticated, markingsRoutes);
 router.use("/bairro", isAuthenticated, bairroRoutes);
 router.use("/categoria", isAuthenticated, categoriaRoutes);
-router.use("/utente", isAuthenticated, utenteRoutes);
+router.use("/utente", utenteRoutes);
 router.use("/licenca", isAuthenticated, licencaRoute);
 router.use("/users", isAuthenticated, usersRoute);
 router.use("/settings", isAuthenticated, settingsRoute);
