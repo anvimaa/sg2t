@@ -1,0 +1,93 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Utente</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/utente/page">Utentes</a></li>
+                    <li class="breadcrumb-item active">{{utente.nome}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img style="width: 150px; height: 150px;" class="profile-user-img img-fluid img-circle"
+                                src="{{utente.foto}}" alt="User profile picture">
+                        </div>
+
+                        <h3 class="profile-username text-center">{{utente.nome}}</h3>
+
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Cadastrado aos</b> <span class="float-right">{{utente.createdAt}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Atualização</b> <span class="float-right">{{utente.updatedAt}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Número de Identificação</b> <span class="float-right">{{utente.bi}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Genero</b> <span class="float-right">{{utente.genero}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Telefone</b> <span class="float-right">{{utente.telefone}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>E-mail</b> <span class="float-right">{{utente.email}}</span>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Morada</b> <span class="float-right">{{utente.morada}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#terreno" data-toggle="tab">Terrenos</a>
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="terreno">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Referencia</th>
+                                                <th>Estado</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#each utente.markings}}
+                                            <tr>
+                                                <td>{{this.code}}</td>
+                                                <td>{{this.ref}}</td>
+                                                <td>{{this.estado}}</td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>

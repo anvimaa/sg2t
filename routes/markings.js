@@ -49,7 +49,7 @@ router.get("/", async (req, res) => {
         code: d.code,
         ref: d.ref,
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "markings", true),
+        btn: makeButonEditDelete(d.id, "markings", false, true),
         type: d.type,
         fillColor: d.fillColor,
         fillOpacity: d.fillOpacity / 10,

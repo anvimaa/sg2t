@@ -1,6 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { makeButonEditDelete, formatDate } = require("./utlis");
+const {
+  makeButonEditDelete,
+  formatDate,
+  logOperation,
+  formatDateTime,
+} = require("./utlis");
 const prisma = require("../db");
 
 router.get("/page", async (req, res) => {
@@ -29,7 +34,7 @@ router.get("/", async (req, res) => {
         foto: d.foto,
         nascimento: d.nascimento.toLocaleDateString("pt-BR", formatDate),
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "utente"),
+        btn: makeButonEditDelete(d.id, "utente", false, true),
         markings: d.markings,
       };
     });
@@ -47,7 +52,7 @@ router.get("/:id", async (req, res) => {
     });
 
     if (utente) {
-      utente.nascimento = "2020-05-05";
+      utente.nascimento = utente.nascimento.toISOString().slice(0, 10);
       return res.json(utente);
     }
 
@@ -73,9 +78,6 @@ router.post("/", async (req, res) => {
           .status(400)
           .json({ message: "Ja existe um utente com esses dados" });
       }
-
-      data.foto = "Teste";
-
       await prisma.utente.create({ data });
 
       message = "Cadastrado com sucesso";
@@ -127,6 +129,36 @@ router.delete("/:id", async (req, res) => {
     await prisma.utente.delete({ where: { id } });
 
     res.json({ message: "utente deletado com sucesso" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/detail/:id", async (req, res) => {
+  try {
+    let id = Number(req.params.id);
+    const utente = await prisma.utente.findUnique({
+      where: { id },
+      include: {
+        markings: true,
+      },
+    });
+
+    if (!utente) {
+      return res.status(404).redirect("/");
+    }
+
+    utente.nascimento = utente.nascimento.toLocaleDateString("pt", formatDate);
+    utente.createdAt = utente.createdAt.toLocaleDateString(
+      "pt",
+      formatDateTime
+    );
+    utente.updatedAt = utente.updatedAt.toLocaleDateString(
+      "pt",
+      formatDateTime
+    );
+    console.log(utente);
+    res.render("utente/details", { utente });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
