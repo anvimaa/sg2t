@@ -39,6 +39,7 @@ router.use(async (req, res, next) => {
   next();
 });
 
+// Middleware para verificar se o usuario que prentende deletar um ob, é administrador
 router.use((req, res, next) => {
   if (req.method == "DELETE" && !req.session.user.isAdmin) {
     logOperation(
