@@ -16,20 +16,7 @@
 <section class="content">
   <div class="row">
 
-    <div class="col-lg-3 col-6">
-      <div class="small-box bg-info">
-        <div class="inner">
-          <h3>{{data.markings}}</h3>
-          <p>Pontos Mapeados</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-bag"></i>
-        </div>
-        <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-2 col-6">
       <div class="small-box bg-success">
         <div class="inner">
           <h3>{{data.utentes}}</h3>
@@ -42,7 +29,7 @@
       </div>
     </div>
 
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-2 col-6">
       <div class="small-box bg-warning">
         <div class="inner">
           <h3>{{data.bairros}}</h3>
@@ -55,7 +42,7 @@
       </div>
     </div>
 
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-2 col-6">
       <div class="small-box bg-danger">
         <div class="inner">
           <h3>{{data.licencas}}</h3>
@@ -67,6 +54,19 @@
         <a href="/licenca/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
+
+    <div class="col-lg-6 col-6">
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{data.marks}}</h3>
+          <p>Pontos Mapeados</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-bag"></i>
+        </div>
+        <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
   </div>
 
   <div class="row">
@@ -75,13 +75,23 @@
         <canvas id="chart1"></canvas>
       </div>
     </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <canvas id="chart2"></canvas>
+      </div>
+    </div>
   </div>
 </section>
 
 <script>
-  let mark = {{ data.markings }}
+  let mark = {{ data.marks }}
   let ut = {{ data.utentes }}
   let bar = {{ data.bairros }}
   let lic = {{ data.licencas }}
+
+  let pend = {{ markings.pendentes }}
+  let leti = {{ markings.letigio }}
+  let reg = {{ markings.regularizado }}
 </script>
 <script src="/js/views/index.js"></script>

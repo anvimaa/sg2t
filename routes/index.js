@@ -1,6 +1,5 @@
 const express = require("express");
-const path = require("path");
-const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 const router = express.Router();
 const prisma = require("../db");
 const { isAuthenticated } = require("./midlewares");
@@ -53,29 +52,38 @@ router.use((req, res, next) => {
   next();
 });
 
-// // Verificar o token CSRF
-// router.use((req, res, next) => {
-//   if ((req.method == "POST" || req.method == "PUT") && !req.csrfToken()) {
-//     logOperation(
-//       ` [POST] Token CSRF inválido.'! ${req.session.user.nome}`,
-//       req.session.user.id,
-//       false
-//     );
-//     return res.status(403).json({ message: "Token CSRF inválido.'" });
-//   }
-//   next();
-// });
-
 // Rota principal
 router.get("/", isAuthenticated, async (req, res) => {
   try {
-    const data = {
-      markings: await prisma.marking.count(),
+    let data = {
+      marks: await prisma.marking.count(),
       bairros: await prisma.bairro.count(),
       utentes: await prisma.utente.count(),
       licencas: await prisma.licenca.count(),
     };
-    res.render("index", { data });
+
+    let markings = {
+      pendentes:
+        ((await prisma.marking.count({
+          where: { estado: "Pendente" },
+        })) /
+          data.marks) *
+        100,
+      letigio:
+        ((await prisma.marking.count({
+          where: { estado: "Letígio" },
+        })) /
+          data.marks) *
+        100,
+      regularizado:
+        ((await prisma.marking.count({
+          where: { estado: "Regularizado" },
+        })) /
+          data.marks) *
+        100,
+    };
+    console.log(markings);
+    res.render("index", { data, markings });
   } catch (error) {
     logOperation(
       "Erro na pagina inicial",
@@ -100,6 +108,53 @@ router.get("/sobre", isAuthenticated, (req, res) => {
   res.render("sobre", {
     layout: null,
   });
+});
+
+router.post("/send-email", async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "anvimaa@gmail.com",
+        pass: "!@#$amado123",
+      },
+    });
+
+    let mailOptions = {
+      from: email, // Email do remetente do formulário
+      to: "anvimaa@gmail.com",
+      subject: subject,
+      text: `Nome: ${name}\nEmail: ${email}\n\n${message}`,
+    };
+
+    // Enviando o email
+    await transporter.sendMail(mailOptions);
+
+    // Salvando o email na tabela do banco de dados utilizando Prisma
+    await prisma.email.create({
+      data: {
+        name,
+        email,
+        subject,
+        message,
+      },
+    });
+
+    logOperation(`Email enviado por ${name}-${email}`, 1);
+
+    return res.redirect("/sobre");
+  } catch (error) {
+    logOperation(
+      `Erro ao enviar email`,
+      3,
+      false,
+      "/send-email",
+      error.message
+    );
+    return;
+  }
 });
 
 // Outras Rotas...
