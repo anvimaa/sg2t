@@ -1,40 +1,99 @@
-<div class="row">
-    <div class="col-md-6">
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <i class="far fa-chart-bar"></i>
-                    Line Chart
-                </h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                </div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Configurações do Sistema</h1>
             </div>
-            <div class="card-body">
-                <div id="line-chart" style="height: 300px;"></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                    <li class="breadcrumb-item">Configurações</li>
+                </ol>
             </div>
-            <!-- /.card-body-->
         </div>
-        <div class="card card-primary card-outline">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <i class="far fa-chart-bar"></i>
-                    Area Chart
-                </h3>
+    </div>
+</section>
 
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
+<div class="row">
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#geral" data-toggle="tab">Configurações Gerais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#aspecto" data-toggle="tab">Aspecto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#logs" data-toggle="tab">Logs</a>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="geral">
+                            <form enctype="multipart/form-data" class="form-horizontal" method="post"
+                                action="/users/update">
+                                <input type="hidden" name="id" id="id" value="{{user.id}}">
+                                <div class="form-group row">
+                                    <label for="nome" class="col-sm-2 col-form-label">Nome Completo</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="nome" name="nome"
+                                            value="{{user.nome}}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="username" class="col-sm-2 col-form-label">Usuario</label>
+                                    <div class="col-sm-10">
+                                        <input value="{{user.username}}" type="password" class="form-control"
+                                            id="username" name="username">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="avatar" class="col-sm-2 col-form-label">Foto</label>
+                                    <div class="col-sm-10">
+                                        <input value="{{user.avatar}}" type="file" class="form-control" id="avatar"
+                                            name="avatar">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger">Atualizar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="aspecto">
+                            <form class="form-horizontal" method="post" id="form-reset">
+                                <input type="hidden" name="id2" id="id2" value="{{user.id}}">
+                                <div class="form-group row">
+                                    <label for="oldPassword" class="col-sm-2 col-form-label">Senha Atual</label>
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" name="oldPassword" id="oldPassword"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="newPassword" class="col-sm-2 col-form-label">Nova Senha</label>
+                                    <div class="col-sm-4">
+                                        <input type="password" class="form-control" name="newPassword" id="newPassword"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="offset-sm-2 col-sm-10">
+                                        <button type="submit" class="btn btn-danger">Trocar</button>
+                                        <button type="reset" class="btn btn-primary">Cancelar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="logs">
+                            <h4>Logs do Sistema</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div id="area-chart" style="height: 338px;" class="full-width-chart"></div>
-            </div>
-            <!-- /.card-body-->
         </div>
     </div>
 </div>
