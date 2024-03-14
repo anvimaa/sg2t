@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { makeButonEditDelete, formatDate } = require("./utlis");
+const { makeButonEditDelete, formatDate, formatDateTime } = require("./utlis");
 const { isAdmin } = require("./midlewares");
 const prisma = require("../db");
 
@@ -37,6 +37,11 @@ router.get("/detail/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     let data = await prisma.marking.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
       include: {
         bairro: true,
         categoria: true,
@@ -49,7 +54,7 @@ router.get("/", async (req, res) => {
         name: d.name,
         code: d.code,
         ref: d.ref,
-        createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
+        createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDateTime),
         btn: makeButonEditDelete(d.id, "markings", false, true),
         type: d.type,
         fillColor: d.fillColor,

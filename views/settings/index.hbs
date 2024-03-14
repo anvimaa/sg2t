@@ -15,7 +15,7 @@
 </section>
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col">
         <div class="card">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
@@ -89,7 +89,26 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="logs">
-                            <h4>Logs do Sistema</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Descrição</th>
+                                        <th>Estado</th>
+                                        <th>Usuario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each logs}}
+                                    <tr>
+                                        <td>{{this.createdAt}}</td>
+                                        <td>{{this.description}}</td>
+                                        <td>{{this.success}}</td>
+                                        <td>{{this.user.nome}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

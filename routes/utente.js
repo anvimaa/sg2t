@@ -21,6 +21,11 @@ router.get("/page", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     let data = await prisma.utente.findMany({
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
       include: { markings: true },
     });
 

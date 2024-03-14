@@ -103,7 +103,7 @@ function loadTable(table, url, columns) {
         [5, 10, 25, "Todos"],
       ],
       pageLength: 10,
-      //order: [3, "asc"],
+      order: [],
       ajax: {
         url: url,
         type: "GET",

@@ -40,16 +40,19 @@ let baseLayers = {
 // Apresentar o mapa
 googleSat.addTo(map);
 
-// Export Button
-var showHome = `<a href="/" title="Voltar" type="button" class="btn btn-primary btn-sm">
-<i class="fa fa-home"></i> Pagina Inicial</a>`;
-var showHomeButton = new L.Control({ position: "bottomleft" });
-showHomeButton.onAdd = function (map) {
+// Botões de Ação
+var showButtons = `<a href="/" title="Voltar" type="button" class="btn btn-success text-light btn-sm"><i class="fa fa-home"></i> Dashboard</a>
+<a href="/markings/page" title="Pontos Mapeados" type="button" class="btn btn-success text-light btn-sm"><i class="fa fa-map-marker"></i> Pontos Mapeados</a>
+<a href="#" onclick="geojsonExport()" title="Exportar arquivo GeoJSON" type="button" class="btn btn-danger btn-sm text-light">Exportar</a>
+<a href="#" onclick="showLayer()" title="Ver/Ocultar" type="button" class="btn btn-danger btn-sm text-light">Ver/Ocultar</a>`;
+
+var buttonsControl = new L.Control({ position: "bottomleft" });
+buttonsControl.onAdd = function (map) {
   this._div = L.DomUtil.create("div");
-  this._div.innerHTML = showHome;
+  this._div.innerHTML = showButtons;
   return this._div;
 };
-showHomeButton.addTo(map);
+buttonsControl.addTo(map);
 
 // Adicionar controle de camadas ao mapa
 L.control.layers(baseLayers).addTo(map);
@@ -81,41 +84,6 @@ map.addControl(drawControl);
 map.on("draw:created", function (e) {
   openModal(e.layerType, e.layer);
 });
-
-// Map Title
-var title = new L.Control({ position: "bottomright" });
-title.onAdd = function (map) {
-  this._div = L.DomUtil.create("div", "info");
-  this.update();
-  return this._div;
-};
-title.update = function () {
-  this._div.innerHTML = `GIS-AMU, Administração Municipal do Uíge<br>
-    Serviços Técnicos e Infra-Estruturas<br>
-    &copy; 2024 Anvima Labs todos direitos reservados`;
-};
-title.addTo(map);
-
-// Export Button
-var showExport = `<a href="#" onclick="geojsonExport()" title="Exportar arquivo GeoJSON" type="button" class="btn btn-danger btn-sm text-light">Exportar</a>`;
-var showExportButton = new L.Control({ position: "topright" });
-showExportButton.onAdd = function (map) {
-  this._div = L.DomUtil.create("div");
-  this._div.innerHTML = showExport;
-  return this._div;
-};
-showExportButton.addTo(map);
-
-// Show Layer
-var showLayers =
-  '<a href="#" onclick="showLayer()" title="Ver/Ocultar" type="button" class="btn btn-danger btn-sm text-light">Ver/Ocultar</a>';
-var showLayersButton = new L.Control({ position: "topright" });
-showLayersButton.onAdd = function (map) {
-  this._div = L.DomUtil.create("div");
-  this._div.innerHTML = showLayers;
-  return this._div;
-};
-showLayersButton.addTo(map);
 
 async function loadMap() {
   await resetForm();
