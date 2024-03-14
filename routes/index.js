@@ -36,6 +36,7 @@ router.use(async (req, res, next) => {
   res.locals.navbar =
     settings.theme == "dark-mode" ? "navbar-dark" : "navbar-light";
   res.locals.appName = settings.appName;
+  // res.locals.csrfToken = req.csrfToken() || null;
   next();
 });
 
@@ -51,6 +52,19 @@ router.use((req, res, next) => {
   }
   next();
 });
+
+// // Verificar o token CSRF
+// router.use((req, res, next) => {
+//   if ((req.method == "POST" || req.method == "PUT") && !req.csrfToken()) {
+//     logOperation(
+//       ` [POST] Token CSRF inválido.'! ${req.session.user.nome}`,
+//       req.session.user.id,
+//       false
+//     );
+//     return res.status(403).json({ message: "Token CSRF inválido.'" });
+//   }
+//   next();
+// });
 
 // Rota principal
 router.get("/", isAuthenticated, (req, res) => {

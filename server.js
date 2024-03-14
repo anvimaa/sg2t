@@ -1,6 +1,8 @@
 const express = require("express");
 const session = require("express-session");
 const hbs = require("hbs");
+const cookieParser = require("cookie-parser");
+
 const app = express();
 const port = 3000;
 
@@ -8,7 +10,8 @@ const routes = require("./routes");
 
 app.set("views", __dirname + "/views");
 app.set("view engine", "hbs");
-
+app.use(cookieParser());
+// app.use(csrf({ cookie: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -21,5 +24,5 @@ hbs.registerPartials(__dirname + "/views/parcials");
 app.use("/", routes);
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+  console.log(`Server running http://localhost:${port}/`);
 });

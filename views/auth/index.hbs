@@ -20,6 +20,7 @@
                 <p class="login-box-msg">Introduza as suas credencias para acessar ao sistema</p>
 
                 <form action="/login" method="post" autocomplete="off">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <div class="input-group mb-3">
                         <input type="text" name="username" id="username" class="form-control" placeholder="Usuario"
                             required>
