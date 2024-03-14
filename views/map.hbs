@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
   <link rel="stylesheet" href="/css/leaflet.css" />
   <link rel="stylesheet" href="/css/leaflet.draw.css" />
+  <link rel="stylesheet" href="/css/leaflet-search.css" />
   <link rel="stylesheet" href="/plugins/select2/css/select2.min.css" />
   <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
   <link rel="stylesheet" href="/css/style.css" />
@@ -17,6 +18,7 @@
   <script src="/plugins/select2/js/select2.full.min.js"></script>
   <script src="/js/leaflet.js"></script>
   <script src="/js/leaflet.draw.js"></script>
+  <script src="/js/leaflet-search.js"></script>
   <script src="/js/pouchdb.js"></script>
   <script src="/js/L.TileLayer.PouchDBCached.js"></script>
   <script src="/dist/js/adminlte.min.js"></script>
@@ -38,6 +40,7 @@
         <div class="modal-body">
           <form id="form" autocomplete="off">
             <input type="hidden" name="id" id="id" value="-1" />
+            <input type="hidden" name="estado" id="estado" value="Pendente" />
             <div class="form-group">
               <label for="name">Descrição do Local</label>
               <input type="text" class="form-control" id="name" name="name" placeholder=" ..." required />
@@ -120,7 +123,7 @@
   </div>
   </div>
 
-  <script src="/js/leaflMap.js"></script>
+  <script src="/js/views/map.js"></script>
 </body>
 
 </html>

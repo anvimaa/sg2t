@@ -61,13 +61,33 @@ L.control.layers(baseLayers).addTo(map);
 var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
 
-var drawControl = new L.Control.Draw({
-  edit: {
-    featureGroup: drawnItems,
-    poly: {
-      allowIntersection: false,
-    },
+// Controle de pesquisar
+var searchControl = new L.Control.Search({
+  layer: drawnItems,
+  propertyName: "name",
+  marker: false,
+  moveToLocation: function (latlng, title, map) {
+    //map.fitBounds( latlng.layer.getBounds() );
+    var zoom = map.getBoundsZoom(latlng.layer.getBounds());
+    map.flyTo(latlng, zoom); // access the zoom
   },
+});
+
+searchControl
+  .on("search:locationfound", function (e) {
+    e.layer.setStyle({ fillColor: "#3f0", color: "red" });
+    e.layer.openPopup();
+  })
+  .on("search:collapsed", function (e) {
+    drawnItems.eachLayer(function (layer) {
+      //restore feature color
+      drawnItems.resetStyle(layer);
+    });
+  });
+
+map.addControl(searchControl); //inizialize search control
+
+var drawControl = new L.Control.Draw({
   draw: {
     circle: false,
     circlemarker: false,

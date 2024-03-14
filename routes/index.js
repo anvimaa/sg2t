@@ -97,7 +97,9 @@ router.get("/map", isAuthenticated, (req, res) => {
 
 // Rota para página sobre
 router.get("/sobre", isAuthenticated, (req, res) => {
-  res.render("sobre");
+  res.render("sobre", {
+    layout: null,
+  });
 });
 
 // Outras Rotas...
