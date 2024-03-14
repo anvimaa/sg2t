@@ -1,55 +1,110 @@
-<h4>Dashboard</h4>
-<div class="row">
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Dashboard</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <div class="col-lg-3 col-6">
-    <div class="small-box bg-info">
-      <div class="inner">
-        <h3>...</h3>
-        <p>Pontos Mapeados</p>
+<section class="content">
+  <div class="row">
+
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{data.markings}}</h3>
+          <p>Pontos Mapeados</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-bag"></i>
+        </div>
+        <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
-      <div class="icon">
-        <i class="ion ion-bag"></i>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-success">
+        <div class="inner">
+          <h3>{{data.utentes}}</h3>
+          <p>Utentes</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="/utente/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
-      <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3>{{data.bairros}}</h3>
+          <p>Bairros</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person-add"></i>
+        </div>
+        <a href="/bairro/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <div class="small-box bg-danger">
+        <div class="inner">
+          <h3>{{data.licencas}}</h3>
+          <p>Licenças</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="/licenca/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
     </div>
   </div>
 
-  <div class="col-lg-3 col-6">
-    <div class="small-box bg-success">
-      <div class="inner">
-        <h3>...</h3>
-        <p>Terrenos</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-stats-bars"></i>
-      </div>
-      <a href="/terreno/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+  <div class="row">
+    <div class="col-sm-6">
+      <canvas id="chart1"></canvas>
     </div>
   </div>
+</section>
 
-  <div class="col-lg-3 col-6">
-    <div class="small-box bg-warning">
-      <div class="inner">
-        <h3>...</h3>
-        <p>Bairros</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-person-add"></i>
-      </div>
-      <a href="/bairro/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
+<script>
+  let mark = {{ data.markings }}
+  let ut = {{ data.utentes }}
+  let bar = {{ data.bairros }}
+  let lic = {{ data.licencas }}
 
-  <div class="col-lg-3 col-6">
-    <div class="small-box bg-danger">
-      <div class="inner">
-        <h3>...</h3>
-        <p>Licenças</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-pie-graph"></i>
-      </div>
-      <a href="/" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
-    </div>
-  </div>
-</div>
+  const ctx = document.getElementById("chart1")
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Pontos", "Utentes", "Bairros", "Licenças"],
+      datasets: [{
+        label: "# total",
+        data: [mark, ut, bar, lic],
+        borderWidth: 1,
+        backgroundColor: ["#16acde", "#38c94c", "#d6b627", "#de342a"]
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          min: 0,
+          beginAtZero: true
+        },
+        y: {
+          min: 0,
+          beginAtZero: true
+        }
+      }
+    }
+  })
+</script>

@@ -67,8 +67,25 @@ router.use((req, res, next) => {
 // });
 
 // Rota principal
-router.get("/", isAuthenticated, (req, res) => {
-  res.render("index");
+router.get("/", isAuthenticated, async (req, res) => {
+  try {
+    const data = {
+      markings: await prisma.marking.count(),
+      bairros: await prisma.bairro.count(),
+      utentes: await prisma.utente.count(),
+      licencas: await prisma.licenca.count(),
+    };
+    res.render("index", { data });
+  } catch (error) {
+    logOperation(
+      "Erro na pagina inicial",
+      req.session.user.id,
+      false,
+      "/",
+      error
+    );
+    return;
+  }
 });
 
 // Rota para ver o mapa
