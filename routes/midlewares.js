@@ -1,6 +1,7 @@
 const path = require("path");
 const multer = require("multer");
 const { v4: uuidv4 } = require("uuid");
+const csrf = require("csurf");
 const { logOperation } = require("./utlis");
 
 const storage = multer.diskStorage({
@@ -37,8 +38,11 @@ const isAdmin = (req, res, next) => {
   res.redirect("/");
 };
 
+const csrfProtection = csrf({ cookie: true });
+
 module.exports = {
   upload,
   isAuthenticated,
   isAdmin,
+  csrfProtection,
 };
