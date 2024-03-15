@@ -4,7 +4,7 @@ Este projeto tem como objetivo criar um sistema de mapeamento utilizando a bibli
 
 ## Acesse o Projeto em Funcionamento
 
-O sistema está disponível online, permitindo que você o explore e experimente suas funcionalidades. [Clique aqui para acessar o projeto](https://projecto-mapa-prisma.vercel.app/).
+O sistema está disponível online, permitindo que você o explore e experimente suas funcionalidades.[Clique aqui para acessar o projeto](https://projecto-mapa-prisma.vercel.app/).
 
 ## Tecnologias Utilizadas
 
@@ -57,3 +57,12 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 ## Licença
 
 Este projeto é licenciado sob a [Licença MIT](LICENSE). Sinta-se livre para utilizar, modificar e distribuir conforme necessário.
+
+## Algumas capturas feitas no Sistema
+
+![Previsualizar](public/previews/preview1.png)
+![Previsualizar](public/previews/preview2.png)
+![Previsualizar](public/previews/preview3.png)
+![Previsualizar](public/previews/preview4.png)
+![Previsualizar](public/previews/preview5.png)
+![Previsualizar](public/previews/preview6.png)

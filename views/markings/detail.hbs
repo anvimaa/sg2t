@@ -6,7 +6,6 @@
                     <i class="fa fa-arrow-alt-circle-left"></i></a>
             </div>
             <div class="col-sm-7">
-                <h1>Pontos Mapeado</h1>
             </div>
             <div class="col-sm-4">
                 <ol class="breadcrumb float-sm-right">
@@ -240,7 +239,7 @@
                 body: JSON.stringify(data),
             }).then((res) => res.json()).then((res) => {
                 Toast.fire({
-                    icon: "success",
+                    icon: res.type,
                     title: res.message,
                 });
             }).catch((e) => {

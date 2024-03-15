@@ -223,20 +223,22 @@ router.post("/associate", async (req, res) => {
     const utente = await prisma.utente.findUnique({ where: { bi } });
     const marking = await prisma.marking.findUnique({ where: { id } });
     if (!utente || !marking) {
-      return res.status(404).json({ message: "Utente Inexistente!" });
+      return res
+        .status(404)
+        .json({ message: "Utente Inexistente!", type: "error" });
     }
     if (marking.isAssociated) {
       return res
         .status(400)
-        .json({ message: "Esta marcação já está associada!" });
+        .json({ message: "Esta marcação já está associada!", type: "error" });
     }
     await prisma.marking.update({
       data: { utenteId: utente.id, isAssociated: true },
       where: { id },
     });
-    return res.json({ message: `Associado com sucesso` });
+    return res.json({ message: `Associado com sucesso`, type: "success" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message, type: "error" });
   }
 });
 
