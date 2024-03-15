@@ -1,6 +1,6 @@
-# Sistema de Mapeamento com Leaflet para Gestão de Terrenos e Espaços - Administração do Uíge
+# Sistema de Geolocalização para Gerenciamento de Terrenos
 
-Este projeto tem como objetivo criar um sistema de mapeamento utilizando a biblioteca Leaflet para a gestão eficiente de terrenos e espaços na Administração do Uíge. O sistema oferece uma interface intuitiva e funcionalidades essenciais para facilitar o acompanhamento e a administração desses recursos.
+O Sistema de Geolocalização para Gerenciamento de Terrenos (SG2T) é uma solução inovadora e eficiente para identificar e mapear propriedades em uma determinada localidade. Desenvolvido para atender às necessidades de empresas imobiliárias, órgãos governamentais, e proprietários individuais, o sistema oferece uma plataforma abrangente para o cadastro, visualização e gerenciamento de informações relacionadas a terrenos e seus respectivos proprietários.
 
 ## Acesse o Projeto em Funcionamento
 
