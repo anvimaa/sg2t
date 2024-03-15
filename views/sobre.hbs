@@ -19,7 +19,7 @@
         #btn-top {
             position: fixed;
             bottom: 20px;
-            right: 20px;
+            right: 90px;
             display: none;
             z-index: 999;
         }
@@ -32,6 +32,21 @@
                 -5px -5px 15px #ffffff;
         }
     </style>
+
+    <!-- Brevo Conversations {literal} -->
+    <script>
+        (function (d, w, c) {
+            w.BrevoConversationsID = '65e1e293d8ec8a7466455f41';
+            w[c] = w[c] || function () {
+                (w[c].q = w[c].q || []).push(arguments);
+            };
+            var s = d.createElement('script');
+            s.async = true;
+            s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+            if (d.head) d.head.appendChild(s);
+        })(document, window, 'BrevoConversations');
+    </script>
+    <!-- /Brevo Conversations {/literal} -->
 </head>
 
 <body class="hold-transition light-mode">
