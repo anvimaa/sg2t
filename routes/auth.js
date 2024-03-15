@@ -13,20 +13,25 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const user = await prisma.user.findUnique({ where: { username } });
+    const user = await prisma.user.findUnique({ where: { username } });
 
-  if (user && (await bcrypt.compare(password, user.password))) {
-    await prisma.user.update({
-      where: { username },
-      data: { lastLogin: new Date(Date.now()) },
-    });
-    req.session.user = user;
-    logOperation(`Sessão iniciada por: ${user.nome}`, user.id);
-    res.redirect("/");
-  } else {
-    res.redirect("/login");
+    if (user && (await bcrypt.compare(password, user.password))) {
+      await prisma.user.update({
+        where: { username },
+        data: { lastLogin: new Date(Date.now()) },
+      });
+      req.session.user = user;
+      logOperation(`Sessão iniciada!`, user.id);
+      res.redirect("/");
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    logOperation("Erro no servidor", 1, false, "/login", error);
+    return;
   }
 });
 

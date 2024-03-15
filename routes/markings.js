@@ -66,6 +66,7 @@ router.get("/", async (req, res) => {
         categoria: d.categoria.nome,
         largura: d.largura,
         comprimento: d.comprimento,
+        estado: d.estado,
       };
     });
     return res.send({ data: data });
@@ -104,6 +105,7 @@ router.post("/", async (req, res) => {
       largura,
       comprimento,
       weight,
+      estado,
       id,
       categoriaId,
     } = req.body;
@@ -133,6 +135,7 @@ router.post("/", async (req, res) => {
           color,
           weight,
           bairroId,
+          estado,
           categoriaId,
         },
       });
@@ -154,6 +157,7 @@ router.post("/", async (req, res) => {
           color,
           weight: Number(weight),
           largura,
+          estado,
           comprimento,
         },
         where: { id },

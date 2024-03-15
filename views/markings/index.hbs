@@ -23,9 +23,9 @@
             <tr>
               <th>Descrição do Ponto</th>
               <th>Código</th>
-              <th>Referência</th>
               <th>Bairro</th>
               <th>Categoria</th>
+              <th>Estado</th>
               <th>Registrado aos</th>
               <th> - </th>
             </tr>
@@ -37,9 +37,9 @@
             <tr>
               <th>Descrição do Ponto</th>
               <th>Código</th>
-              <th>Referência</th>
               <th>Bairro</th>
               <th>Categoria</th>
+              <th>Estado</th>
               <th>Registrado aos</th>
               <th> - </th>
             </tr>
@@ -75,54 +75,61 @@
               <label for="ref">Referência</label>
               <input type="text" class="form-control" autocomplete="off" id="ref" name="ref" />
             </div>
+            <div class="row">
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="largura">Largura em Metros</label>
+                  <input type="number" class="form-control" name="largura" id="largura" required />
+                </div>
+              </div>
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="comprimento">Comprimento em Metros</label>
+                  <input type="number" class="form-control" name="comprimento" id="comprimento" required />
+                </div>
+              </div>
+              <div class="col col-md-4">
+                <div class="form-group">
+                  <label for="estado">Estado</label>
+                  <select name="estado" id="estado" class="select2 form-control" style="width: 100%;">
+                    <option value="Pendente">Pendente</option>
+                    <option value="Letígio">Letígio</option>
+                    <option value="Regularizado">Regularizado</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <p>Propriedades da forma</p>
+            <hr>
+            <div class="row">
+              <div class="col col-md-3">
+                <div class="form-group">
+                  <label for="code">Preenchimento</label>
+                  <input type="color" class="form-control" name="fillColor" id="fillColor" required />
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="form-group">
+                  <label for="code">Opacidade</label>
+                  <input type="range" min="1" max="10" class="form-control" name="fillOpacity" id="fillOpacity"
+                    required />
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="form-group">
+                  <label for="ref">Borda</label>
+                  <input type="color" class="form-control" name="color" id="color" required />
+                </div>
+              </div>
+              <div class="col col-md-3">
+                <div class="form-group">
+                  <label for="code">Largura</label>
+                  <input type="range" min="1" value="3" max="5" class="form-control" name="weight" id="weight"
+                    required />
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="row">
-            <div class="col col-md-6">
-              <div class="form-group">
-                <label for="largura">Largura em Metros</label>
-                <input type="number" class="form-control" name="largura" id="largura" required />
-              </div>
-            </div>
-            <div class="col col-md-6">
-              <div class="form-group">
-                <label for="comprimento">Comprimento em Metros</label>
-                <input type="number" class="form-control" name="comprimento" id="comprimento" required />
-              </div>
-            </div>
-          </div>
-
-          <p>Propriedades da forma</p>
-          <hr>
-
-          <div class="row">
-            <div class="col col-md-3">
-              <div class="form-group">
-                <label for="code">Preenchimento</label>
-                <input type="color" class="form-control" name="fillColor" id="fillColor" required />
-              </div>
-            </div>
-            <div class="col col-md-3">
-              <div class="form-group">
-                <label for="code">Opacidade</label>
-                <input type="range" min="1" max="10" class="form-control" name="fillOpacity" id="fillOpacity"
-                  required />
-              </div>
-            </div>
-            <div class="col col-md-3">
-              <div class="form-group">
-                <label for="ref">Borda</label>
-                <input type="color" class="form-control" name="color" id="color" required />
-              </div>
-            </div>
-            <div class="col col-md-3">
-              <div class="form-group">
-                <label for="code">Largura</label>
-                <input type="range" min="1" value="3" max="5" class="form-control" name="weight" id="weight" required />
-              </div>
-            </div>
-          </div>
-
           <div class="card-footer">
             <button type="submit" class="btn btn-primary">Salvar</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -132,3 +139,7 @@
     </div>
   </div>
 </div>
+
+<script>
+
+</script>

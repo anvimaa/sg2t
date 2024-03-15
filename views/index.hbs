@@ -16,95 +16,92 @@
 <section class="content">
   <div class="row">
 
-    <div class="col-lg-3 col-6">
-      <div class="small-box bg-info">
-        <div class="inner">
-          <h3>{{data.markings}}</h3>
-          <p>Pontos Mapeados</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-bag"></i>
-        </div>
-        <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-2 col-6">
       <div class="small-box bg-success">
         <div class="inner">
           <h3>{{data.utentes}}</h3>
           <p>Utentes</p>
         </div>
         <div class="icon">
-          <i class="ion ion-stats-bars"></i>
+          <i class="fa fa-user-astronaut"></i>
         </div>
         <a href="/utente/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
 
-    <div class="col-lg-3 col-6">
+    <div class="col-lg-2 col-6">
       <div class="small-box bg-warning">
         <div class="inner">
           <h3>{{data.bairros}}</h3>
           <p>Bairros</p>
         </div>
         <div class="icon">
-          <i class="ion ion-person-add"></i>
+          <i class="fa fa-map-marked"></i>
         </div>
         <a href="/bairro/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
 
-    <div class="col-lg-3 col-6">
-      <div class="small-box bg-danger">
+    <div class="col-lg-2 col-6">
+      <div class="small-box bg-indigo">
         <div class="inner">
           <h3>{{data.licencas}}</h3>
           <p>Licenças</p>
         </div>
         <div class="icon">
-          <i class="ion ion-pie-graph"></i>
+          <i class="fa fa-id-card"></i>
         </div>
         <a href="/licenca/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-6">
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{data.marks}}</h3>
+          <p>Pontos Mapeados</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-map"></i>
+        </div>
+        <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-sm-6">
-      <canvas id="chart1"></canvas>
+    <div class="col-sm-4">
+      <div class="card">
+        <canvas height="350px" id="chart1"></canvas>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card">
+        <canvas height="350px" id="chart2"></canvas>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card">
+        <canvas height="350px" id="chart3"></canvas>
+      </div>
     </div>
   </div>
 </section>
 
 <script>
-  let mark = {{ data.markings }}
+  let mark = {{ data.marks }}
   let ut = {{ data.utentes }}
   let bar = {{ data.bairros }}
   let lic = {{ data.licencas }}
 
-  const ctx = document.getElementById("chart1")
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["Pontos", "Utentes", "Bairros", "Licenças"],
-      datasets: [{
-        label: "# total",
-        data: [mark, ut, bar, lic],
-        borderWidth: 1,
-        backgroundColor: ["#16acde", "#38c94c", "#d6b627", "#de342a"]
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          min: 0,
-          beginAtZero: true
-        },
-        y: {
-          min: 0,
-          beginAtZero: true
-        }
-      }
-    }
-  })
+  let pend = {{ markings.pendentes }}
+  let leti = {{ markings.letigio }}
+  let reg = {{ markings.regularizado }}
+
+  let percpend = {{ markings.percentPendente }}
+  let percleti = {{ markings.percentLetigio }}
+  let percreg = {{ markings.percentRegularizado }}
 </script>
+<script src="/js/views/index.js"></script>

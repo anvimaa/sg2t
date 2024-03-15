@@ -15,9 +15,9 @@ const columnsBairro = [
 const columnsMarkings = [
   { data: "name", autowidth: true },
   { data: "code", autowidth: true },
-  { data: "ref", autowidth: true },
   { data: "bairro", autowidth: true },
   { data: "categoria", autowidth: true },
+  { data: "estado", autowidth: true },
   { data: "createdAt", autowidth: true },
   { data: "btn", autowidth: true },
 ];
