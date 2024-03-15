@@ -37,7 +37,7 @@ O projeto é desenvolvido utilizando as seguintes tecnologias:
 2. Instale as dependências e inicialize o PrismaClient:
 
    ```bash
-   cd seu-repositorio
+   cd seu-diretorio
    npm install
    npx prisma migrate dev --name "Inicial"
    ```
