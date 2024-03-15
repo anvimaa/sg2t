@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const port = 3000;
 
+const SECRET_KEY_SESSION = "bf221c6bd3984e5f9d3c599b4da9aeae";
+
 const routes = require("./routes");
 
 app.set("views", __dirname + "/views");
@@ -15,7 +17,11 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  session({ secret: "secretpass", resave: false, saveUninitialized: false })
+  session({
+    secret: SECRET_KEY_SESSION,
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 app.use(express.json());
 
