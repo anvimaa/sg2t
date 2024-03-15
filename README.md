@@ -56,7 +56,7 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar
 
 ## Licença
 
-Este projeto é licenciado sob a [Licença MIT](LICENSE). Sinta-se livre para utilizar, modificar e distribuir conforme necessário.
+Este projeto é licenciado sob a [Licença MIT](LICENSE).
 
 ## Algumas capturas feitas no Sistema
 
