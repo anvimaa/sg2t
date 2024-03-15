@@ -126,9 +126,11 @@ async function loadMap() {
         layer.on("click", function (event) {
           // Criar o conteúdo do popup com as informações adicionais
           let popupContent = `
-            <h3>${marking.name}</h3>
-            <h5>Código ${marking.code}</h5>
-            <h5>Bairro ${marking.bairro}</h5>
+            <h3 class="text-green">${marking.name}</h3>
+            <p class="text-sm">${marking.categoria}</p>
+            <h5>Código: <span class="text-danger">${marking.code}</spna></h5>
+            <h5>Bairro: ${marking.bairro}</h5>
+            <h5>Estado: ${marking.estado}</h5>
             `;
 
           // Exibir o popup no local do clique

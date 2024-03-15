@@ -5,6 +5,11 @@ const prisma = require("../db");
 const { isAuthenticated } = require("./midlewares");
 const { logOperation } = require("./utlis");
 
+const SMTP_SERVER = process.env.SMTP_SERVER;
+const USER_SMTP = process.env.USER_SMTP;
+const PASS_SMTP = process.env.PASS_SMTP;
+const EMAIL_SMTP = process.env.EMAIL_SMTP;
+
 // Importar as rotas
 const markingsRoutes = require("./markings");
 const bairroRoutes = require("./bairro");
@@ -74,9 +79,17 @@ router.get("/", isAuthenticated, async (req, res) => {
       }),
     };
 
-    markings.percentPendente = (markings.pendentes / data.marks) * 100;
-    markings.percentLetigio = (markings.letigio / data.marks) * 100;
-    markings.percentRegularizado = (markings.regularizado / data.marks) * 100;
+    markings.percentPendente = (
+      (markings.pendentes / data.marks) *
+      100
+    ).toFixed(2);
+    markings.percentLetigio = ((markings.letigio / data.marks) * 100).toFixed(
+      2
+    );
+    markings.percentRegularizado = (
+      (markings.regularizado / data.marks) *
+      100
+    ).toFixed(2);
 
     res.render("index", { data, markings });
   } catch (error) {
@@ -110,16 +123,18 @@ router.post("/send-email", async (req, res) => {
     const { name, email, subject, message } = req.body;
 
     let transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: SMTP_SERVER,
+      port: 587,
+      secure: false, // upgrade later with STARTTLS
       auth: {
-        user: "anvimaa@gmail.com",
-        pass: "!@#$amado123",
+        user: USER_SMTP,
+        pass: PASS_SMTP,
       },
     });
 
     let mailOptions = {
       from: email, // Email do remetente do formulário
-      to: "anvimaa@gmail.com",
+      to: EMAIL_SMTP,
       subject: subject,
       text: `Nome: ${name}\nEmail: ${email}\n\n${message}`,
     };
@@ -137,9 +152,9 @@ router.post("/send-email", async (req, res) => {
       },
     });
 
-    logOperation(`Email enviado por ${name}-${email}`, 1);
-
-    return res.redirect("/sobre");
+    logOperation(`Email enviado por ${name}-${email}`, 3);
+    console.log("Email Enviado com sucesso");
+    res.json({ message: "Recebemos o seu e-mail!", type: "success" });
   } catch (error) {
     logOperation(
       `Erro ao enviar email`,

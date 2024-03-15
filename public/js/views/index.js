@@ -65,7 +65,11 @@ var chart2 = new Chart(ctx2, {
 var chart3 = new Chart(ctx3, {
   type: "pie",
   data: {
-    labels: ["Pendente", "Letígio", "Regularizado"],
+    labels: [
+      `Pendente ${percpend}%`,
+      `Letígio ${percleti}%`,
+      `Regularizado ${percreg}%`,
+    ],
     datasets: [
       {
         label: "% Total",
