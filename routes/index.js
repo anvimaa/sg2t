@@ -74,9 +74,17 @@ router.get("/", isAuthenticated, async (req, res) => {
       }),
     };
 
-    markings.percentPendente = (markings.pendentes / data.marks) * 100;
-    markings.percentLetigio = (markings.letigio / data.marks) * 100;
-    markings.percentRegularizado = (markings.regularizado / data.marks) * 100;
+    markings.percentPendente = (
+      (markings.pendentes / data.marks) *
+      100
+    ).toFixed(2);
+    markings.percentLetigio = ((markings.letigio / data.marks) * 100).toFixed(
+      2
+    );
+    markings.percentRegularizado = (
+      (markings.regularizado / data.marks) *
+      100
+    ).toFixed(2);
 
     res.render("index", { data, markings });
   } catch (error) {
