@@ -3,6 +3,7 @@ const path = require("path");
 const prisma = require("../db");
 
 async function deleteFile(filePath) {
+  if (filePath == "/dist/img/avatar.png") return;
   try {
     const file = path.join(__dirname, "../public/", filePath);
     await fs.unlink(file);

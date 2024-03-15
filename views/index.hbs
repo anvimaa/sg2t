@@ -23,7 +23,7 @@
           <p>Utentes</p>
         </div>
         <div class="icon">
-          <i class="ion ion-stats-bars"></i>
+          <i class="fa fa-user-astronaut"></i>
         </div>
         <a href="/utente/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
@@ -36,20 +36,20 @@
           <p>Bairros</p>
         </div>
         <div class="icon">
-          <i class="ion ion-person-add"></i>
+          <i class="fa fa-map-marked"></i>
         </div>
         <a href="/bairro/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
     </div>
 
     <div class="col-lg-2 col-6">
-      <div class="small-box bg-danger">
+      <div class="small-box bg-indigo">
         <div class="inner">
           <h3>{{data.licencas}}</h3>
           <p>Licenças</p>
         </div>
         <div class="icon">
-          <i class="ion ion-pie-graph"></i>
+          <i class="fa fa-id-card"></i>
         </div>
         <a href="/licenca/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
@@ -62,7 +62,7 @@
           <p>Pontos Mapeados</p>
         </div>
         <div class="icon">
-          <i class="ion ion-bag"></i>
+          <i class="fa fa-map"></i>
         </div>
         <a href="/markings/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
       </div>
@@ -70,15 +70,21 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <div class="card">
-        <canvas id="chart1"></canvas>
+        <canvas height="350px" id="chart1"></canvas>
       </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <div class="card">
-        <canvas id="chart2"></canvas>
+        <canvas height="350px" id="chart2"></canvas>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="card">
+        <canvas height="350px" id="chart3"></canvas>
       </div>
     </div>
   </div>
@@ -93,5 +99,9 @@
   let pend = {{ markings.pendentes }}
   let leti = {{ markings.letigio }}
   let reg = {{ markings.regularizado }}
+
+  let percpend = {{ markings.percentPendente }}
+  let percleti = {{ markings.percentLetigio }}
+  let percreg = {{ markings.percentRegularizado }}
 </script>
 <script src="/js/views/index.js"></script>

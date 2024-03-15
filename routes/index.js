@@ -63,26 +63,21 @@ router.get("/", isAuthenticated, async (req, res) => {
     };
 
     let markings = {
-      pendentes:
-        ((await prisma.marking.count({
-          where: { estado: "Pendente" },
-        })) /
-          data.marks) *
-        100,
-      letigio:
-        ((await prisma.marking.count({
-          where: { estado: "Letígio" },
-        })) /
-          data.marks) *
-        100,
-      regularizado:
-        ((await prisma.marking.count({
-          where: { estado: "Regularizado" },
-        })) /
-          data.marks) *
-        100,
+      pendentes: await prisma.marking.count({
+        where: { estado: "Pendente" },
+      }),
+      letigio: await prisma.marking.count({
+        where: { estado: "Letígio" },
+      }),
+      regularizado: await prisma.marking.count({
+        where: { estado: "Regularizado" },
+      }),
     };
-    console.log(markings);
+
+    markings.percentPendente = (markings.pendentes / data.marks) * 100;
+    markings.percentLetigio = (markings.letigio / data.marks) * 100;
+    markings.percentRegularizado = (markings.regularizado / data.marks) * 100;
+
     res.render("index", { data, markings });
   } catch (error) {
     logOperation(
