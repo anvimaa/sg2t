@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const prisma = require("../db");
+const { isAdmin } = require("./midlewares");
 const { makeButonEditDelete, formatDate, formatDateTime } = require("./utlis");
 
-router.get("/page", async (req, res) => {
+router.get("/page", isAdmin, async (req, res) => {
   try {
     const logs = await prisma.log.findMany({
       orderBy: [

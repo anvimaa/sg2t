@@ -170,11 +170,11 @@ router.post("/send-email", async (req, res) => {
 // Outras Rotas...
 router.use("/", authRoute);
 router.use("/markings", isAuthenticated, markingsRoutes);
-router.use("/bairro", isAuthenticated, isAdmin, bairroRoutes);
-router.use("/categoria", isAuthenticated, isAdmin, categoriaRoutes);
+router.use("/bairro", isAuthenticated, bairroRoutes);
+router.use("/categoria", isAuthenticated, categoriaRoutes);
 router.use("/utente", isAuthenticated, utenteRoutes);
 router.use("/licenca", isAuthenticated, licencaRoute);
 router.use("/users", isAuthenticated, isAdmin, usersRoute);
-router.use("/settings", isAuthenticated, isAdmin, settingsRoute);
+router.use("/settings", isAuthenticated, settingsRoute);
 
 module.exports = router;

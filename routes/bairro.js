@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { makeButonEditDelete, formatDate } = require("./utlis");
+const { isAdmin } = require("./midlewares");
 const prisma = require("../db");
 
-router.get("/page", async (req, res) => {
+router.get("/page", isAdmin, async (req, res) => {
   try {
     res.render("bairro");
   } catch (error) {
@@ -28,7 +29,7 @@ router.get("/", async (req, res) => {
           "bairro",
           false,
           false,
-          req.user.isAdmin
+          req.session.user.isAdmin || false
         ),
         markings: d.markings,
       };
@@ -57,7 +58,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   try {
     let { nome, descricao, id } = req.body;
     id = Number(id);
@@ -92,7 +93,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAdmin, async (req, res) => {
   try {
     const id = Number(req.params.id);
 
@@ -110,7 +111,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isAdmin, async (req, res) => {
   try {
     let id = Number(req.params.id);
     const exist = await prisma.bairro.findFirst({ where: { id } });

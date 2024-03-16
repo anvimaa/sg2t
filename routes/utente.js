@@ -41,7 +41,13 @@ router.get("/", async (req, res) => {
         foto: d.foto,
         nascimento: d.nascimento.toLocaleDateString("pt-BR", formatDate),
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "utente", true, true, req.user.isAdmin),
+        btn: makeButonEditDelete(
+          d.id,
+          "utente",
+          true,
+          true,
+          req.session.user.isAdmin || false
+        ),
         markings: d.markings,
       };
     });

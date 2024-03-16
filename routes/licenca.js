@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
           "licenca",
           false,
           false,
-          req.user.isAdmin
+          req.session.user.isAdmin || false
         ),
         marking: d.marking,
       };

@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
           "markings",
           false,
           true,
-          req.user.isAdmin
+          req.session.user.isAdmin || false
         ),
         type: d.type,
         fillColor: d.fillColor,
@@ -72,7 +72,12 @@ router.get("/", async (req, res) => {
         categoria: d.categoria.nome,
         largura: d.largura,
         comprimento: d.comprimento,
-        estado: d.estado,
+        estado:
+          d.estado == "Pendente"
+            ? "<span class='badge badge-warning'>Pendente</spna>"
+            : d.estado == "Letígio"
+            ? "<span class='badge badge-danger'>Letígio</spna>"
+            : "<span class='badge badge-success'>Regularizado</spna>",
       };
     });
     return res.send({ data: data });
