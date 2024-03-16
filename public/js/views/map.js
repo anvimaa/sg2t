@@ -101,7 +101,7 @@ map.addControl(drawControl);
 
 //var featureGroup = L.featureGroup().addTo(map);
 
-map.on("draw:created", function (e) {
+map.on("draw:created", (e) => {
   openModal(e.layerType, e.layer);
 });
 
@@ -149,8 +149,6 @@ async function loadMap() {
 
 function openModal(type, layer) {
   $("#modal-default").modal("show");
-  console.log(type);
-
   $("#form").submit(function (e) {
     e.preventDefault();
     let name = $("#name").val();
@@ -206,7 +204,8 @@ function openModal(type, layer) {
       .then((response) => response.json())
       .then((data) => {
         $("#modal-default").modal("hide");
-        loadMap();
+        window.location.reload();
+        //loadMap();
       })
       .catch((error) => {
         console.error("Error:", error);
