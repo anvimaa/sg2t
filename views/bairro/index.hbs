@@ -14,7 +14,6 @@
   </div>
 </section>
 
-
 <div class="row mb-2">
   <div class="col">
     <div class="card">
@@ -79,3 +78,22 @@
     </div>
   </div>
 </div>
+
+<script>
+  const columns = [
+    { data: "nome", autowidth: true },
+    { data: "descricao", autowidth: true },
+    { data: "createdAt", autowidth: true },
+    { data: "btn", autowidth: true },
+  ];
+  $(function () {
+    loadTable("#table-bairro", "/bairro", columns);
+
+    $("#btn-novo-bairro").click((e) => {
+      $("#card-title").text("Novo Registro");
+      showModal("#modal-bairro");
+    });
+
+    submitForm("bairro")
+  });
+</script>

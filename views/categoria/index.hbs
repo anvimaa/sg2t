@@ -72,3 +72,22 @@
     </div>
   </div>
 </div>
+
+<script>
+  const columns = [
+    { data: "nome", autowidth: true },
+    { data: "createdAt", autowidth: true },
+    { data: "btn", autowidth: true },
+  ];
+
+  $(function () {
+    loadTable("#table-categoria", "/categoria", columns);
+
+    $("#btn-novo-categoria").click((e) => {
+      $("#card-title").text("Novo Registro");
+      showModal("#modal-categoria");
+    });
+
+    submitForm("categoria")
+  });
+</script>

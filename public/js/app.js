@@ -5,48 +5,9 @@ const Toast = Swal.mixin({
   timer: 5000,
 });
 
-const columnsBairro = [
-  { data: "nome", autowidth: true },
-  { data: "descricao", autowidth: true },
-  { data: "createdAt", autowidth: true },
-  { data: "btn", autowidth: true },
-];
-
-const columnsMarkings = [
-  { data: "name", autowidth: true },
-  { data: "code", autowidth: true },
-  { data: "bairro", autowidth: true },
-  { data: "categoria", autowidth: true },
-  { data: "estado", autowidth: true },
-  { data: "createdAt", autowidth: true },
-  { data: "btn", autowidth: true },
-];
-
-const columnscategoria = [
-  { data: "nome", autowidth: true },
-  { data: "createdAt", autowidth: true },
-  { data: "btn", autowidth: true },
-];
-
 $(function () {
   //Plugins
   $(".select2").select2();
-
-  // Loading Tables
-  loadTable("#table-bairro", "/bairro", columnsBairro);
-  loadTable("#table-markings", "/markings", columnsMarkings);
-  loadTable("#table-categoria", "/categoria", columnscategoria);
-
-  // Bottons Clicks
-  $("#btn-novo-bairro").click((e) => {
-    $("#card-title").text("Novo Registro");
-    showModal("#modal-bairro");
-  });
-
-  $("#btn-novo-categoria").click((e) => {
-    $("#card-title").text("Novo Registro");
-    showModal("#modal-categoria");
-  });
 
   $("#btn-theme").click((e) => {
     fetch("/settings/update-theme")
@@ -74,11 +35,6 @@ $(function () {
         console.error(e);
       });
   });
-
-  // Submit Forms
-  submitForm("bairro");
-  submitForm("markings");
-  submitForm("categoria");
 });
 
 function loadTable(table, url, columns) {

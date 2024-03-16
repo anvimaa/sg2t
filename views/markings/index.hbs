@@ -141,5 +141,24 @@
 </div>
 
 <script>
+  const columns = [
+    { data: "name", autowidth: true },
+    { data: "code", autowidth: true },
+    { data: "bairro", autowidth: true },
+    { data: "categoria", autowidth: true },
+    { data: "estado", autowidth: true },
+    { data: "createdAt", autowidth: true },
+    { data: "btn", autowidth: true },
+  ];
 
+  $(function () {
+    loadTable("#table-markings", "/markings", columns);
+
+    $("#btn-novo-markings").click((e) => {
+      $("#card-title").text("Novo Registro");
+      showModal("#modal-markings");
+    });
+
+    submitForm("markings")
+  });
 </script>
