@@ -2,6 +2,20 @@ const fs = require("fs").promises;
 const path = require("path");
 const prisma = require("../db");
 
+const formatDate = {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+};
+
+const formatDateTime = {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "numeric",
+  minute: "numeric",
+};
+
 async function deleteFile(filePath) {
   if (filePath == "/dist/img/avatar.png") return;
   try {
@@ -62,8 +76,6 @@ async function logOperation(
   }
 }
 
-let a = 6;
-
 function getCurrentDate() {
   const now = new Date();
   const year = now.getFullYear();
@@ -73,21 +85,13 @@ function getCurrentDate() {
   return `${year}-${month}-${day}`;
 }
 
-let formatDate = {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-};
-
-let formatDateTime = {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "numeric",
-  minute: "numeric",
-};
-
-function makeButonEditDelete(id, model, constumnEdit = false, detail = false) {
+function makeButonEditDelete(
+  id,
+  model,
+  constumnEdit = false,
+  detail = false,
+  isAdmin = false
+) {
   let btn = "";
   if (detail) {
     btn += `<a class="btn btn-info" href="/${model}/detail/${id}">
@@ -100,8 +104,10 @@ function makeButonEditDelete(id, model, constumnEdit = false, detail = false) {
     btn += `<button class="btn btn-warning"onclick="onEdit('${id}','${model}')">
         <i class="fa fa-pen"></i></button>-`;
   }
-  btn += `<button onclick="onDelete('${id}','${model}')" class="btn btn-danger">
-        <i class="fa fa-trash"></i></button>`;
+  if (isAdmin) {
+    btn += `<button onclick="onDelete('${id}','${model}')" class="btn btn-danger">
+          <i class="fa fa-trash"></i></button>`;
+  }
   return btn;
 }
 

@@ -38,7 +38,11 @@
         <div class="icon">
           <i class="fa fa-map-marked"></i>
         </div>
+        {{#if user.isAdmin}}
         <a href="/bairro/page" class="small-box-footer">Mais <i class="fas fa-arrow-circle-right"></i></a>
+        {{else}}
+        <a class="small-box-footer">-</a>
+        {{/if}}
       </div>
     </div>
 

@@ -24,7 +24,13 @@ router.get("/", async (req, res) => {
         numero: d.numero,
         observacao: d.observacao,
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "licenca"),
+        btn: makeButonEditDelete(
+          d.id,
+          "licenca",
+          false,
+          false,
+          req.user.isAdmin
+        ),
         marking: d.marking,
       };
     });

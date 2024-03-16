@@ -28,7 +28,7 @@ const isAuthenticated = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   if (req.session.user.isAdmin) {
-    next();
+    return next();
   }
   logOperation(
     `Acesso negado para ${req.session.user.nome}`,

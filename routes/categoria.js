@@ -22,7 +22,13 @@ router.get("/", async (req, res) => {
         id: d.id,
         nome: d.nome,
         createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(d.id, "categoria"),
+        btn: makeButonEditDelete(
+          d.id,
+          "categoria",
+          false,
+          false,
+          req.user.isAdmin
+        ),
         markings: d.markings,
       };
     });

@@ -19,7 +19,7 @@ router.get("/page", async (req, res) => {
         nome: u.nome,
         lastLogin: u.lastLogin.toLocaleDateString("pt-BR", formatDateTime),
         createdAt: u.createdAt.toLocaleDateString("pt-BR", formatDateTime),
-        btn: makeButonEditDelete(u.id, "users"),
+        btn: makeButonEditDelete(u.id, "users", false, false, req.user.isAdmin),
       };
     });
     return res.render("users", { users });

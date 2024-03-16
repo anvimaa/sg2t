@@ -2,7 +2,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 const prisma = require("../db");
-const { isAuthenticated } = require("./midlewares");
+const { isAuthenticated, isAdmin } = require("./midlewares");
 const { logOperation } = require("./utlis");
 
 const SMTP_SERVER = process.env.SMTP_SERVER;
@@ -170,11 +170,11 @@ router.post("/send-email", async (req, res) => {
 // Outras Rotas...
 router.use("/", authRoute);
 router.use("/markings", isAuthenticated, markingsRoutes);
-router.use("/bairro", isAuthenticated, bairroRoutes);
-router.use("/categoria", isAuthenticated, categoriaRoutes);
+router.use("/bairro", isAuthenticated, isAdmin, bairroRoutes);
+router.use("/categoria", isAuthenticated, isAdmin, categoriaRoutes);
 router.use("/utente", isAuthenticated, utenteRoutes);
 router.use("/licenca", isAuthenticated, licencaRoute);
-router.use("/users", isAuthenticated, usersRoute);
-router.use("/settings", isAuthenticated, settingsRoute);
+router.use("/users", isAuthenticated, isAdmin, usersRoute);
+router.use("/settings", isAuthenticated, isAdmin, settingsRoute);
 
 module.exports = router;
