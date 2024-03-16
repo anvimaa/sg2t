@@ -14,7 +14,6 @@
     </div>
 </section>
 
-
 <div class="row mb-2">
     <div class="col">
         <div class="card">
@@ -22,7 +21,7 @@
                 <button id="btn-novo-users" type="button" class="btn btn-primary"><i class="fa fa-plus-circle"></i>
                     Registrar Usuario</button>
                 <hr />
-                <table style="width: 100%;" id="table-users" class="table table-bordered table-striped">
+                <table id="table-user" style="width: 100%;" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Nome do Usuario</th>
@@ -108,5 +107,7 @@
             showModal("#modal-users");
         });
         //submitForm("users")
+
+        loadSimpleTable("#table-user")
     });
 </script>

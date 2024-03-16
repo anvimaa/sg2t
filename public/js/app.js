@@ -102,7 +102,7 @@ function loadTable(table, url, columns) {
         [5, 10, 25, -1],
         [5, 10, 25, "Todos"],
       ],
-      pageLength: 10,
+      pageLength: 5,
       order: [],
       ajax: {
         url: url,
@@ -114,6 +114,30 @@ function loadTable(table, url, columns) {
     .buttons()
     .container()
     .appendTo(`${table}_wrapper .col-md-6:eq(0)`);
+}
+
+function loadSimpleTable(table) {
+  $(table).DataTable({
+    responsive: true,
+    lengthChange: true,
+    autoWidth: true,
+    language: {
+      lengthMenu: "Exibir _MENU_ Registros por página",
+      search: "Procurar",
+      paginate: { previous: "Retornar", next: "Avançar" },
+      zeroRecords: "Nenhum registro foi encontrado",
+      info: "Exibindo página _PAGE_ de _PAGES_ (_MAX_ registros.)",
+      infoEmpty: "Sem registros",
+    },
+    processing: true,
+    filter: true,
+    lengthMenu: [
+      [5, 10, 25, -1],
+      [5, 10, 25, "Todos"],
+    ],
+    pageLength: 5,
+    order: [],
+  });
 }
 
 function refreshTable(table) {
