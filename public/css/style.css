@@ -40,3 +40,7 @@
 .leaflet-popup-content-wrapper {
   min-width: 150px;
 }
+
+.selected {
+  background-color: gray;
+}

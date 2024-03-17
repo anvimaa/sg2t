@@ -38,6 +38,7 @@
                             <p>Em desenvolvimento</p>
                         </div>
                         <div class="tab-pane" id="logs">
+                            <h1 id="title-teste"></h1>
                             <table style="width: 100%;" class="table table-striped" id="table-logs">
                                 <thead>
                                     <tr>
@@ -71,7 +72,26 @@
 </div>
 
 <script>
+    var dts = [];
     $(function () {
-        loadSimpleTable("#table-logs")
+        var tb = loadSimpleTable("#table-logs")
+        tb.on("select", (e, dt, type, indexes) => {
+            if (type === "row") {
+                var data = dt.rows(indexes).data().toArray();
+                dts.push(data[0][0]);
+                updateCount(dts)
+            }
+        });
+        tb.on("deselect", (e, dt, type, indexes) => {
+            if (type === "row") {
+                var data = dt.rows(indexes).data().toArray();
+                dts = dts.filter((d) => d !== data[0][0]);
+                updateCount(dts)
+            }
+        });
+
     });
+
+    function updateCount(dts = []) {
+    }
 </script>

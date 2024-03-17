@@ -73,7 +73,12 @@ function loadTable(table, url, columns) {
 }
 
 function loadSimpleTable(table) {
-  $(table).DataTable({
+  var tb = $(table).DataTable({
+    select: {
+      style: "multi",
+      // selector: "td:first-child input:checkbox",
+      // selectAll: true,
+    },
     responsive: true,
     lengthChange: true,
     autoWidth: true,
@@ -94,6 +99,7 @@ function loadSimpleTable(table) {
     pageLength: 5,
     order: [],
   });
+  return tb;
 }
 
 function refreshTable(table) {
