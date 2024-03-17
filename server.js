@@ -1,9 +1,13 @@
 const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 const session = require("express-session");
 const hbs = require("hbs");
 const cookieParser = require("cookie-parser");
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer);
 const port = 3000;
 
 const SECRET_KEY_SESSION = "bf221c6bd3984e5f9d3c599b4da9aeae";
@@ -24,11 +28,13 @@ app.use(
   })
 );
 app.use(express.json());
-
 hbs.registerPartials(__dirname + "/views/parcials");
-
 app.use("/", routes);
 
-app.listen(port, () => {
+io.on("connection", (socket) => {
+  console.log("Nova Conexão", socket.id);
+});
+
+httpServer.listen(port, () => {
   console.log(`Servidor Executando em: http://localhost:${port}/`);
 });
