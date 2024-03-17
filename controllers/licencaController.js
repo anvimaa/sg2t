@@ -27,7 +27,6 @@ async function getLicencas(isAdmin) {
     });
     return data;
   } catch (error) {
-    console.log(error);
     throw Error("Erro: get licencas");
   }
 }
