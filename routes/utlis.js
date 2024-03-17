@@ -111,10 +111,20 @@ function makeButonEditDelete(
   return btn;
 }
 
+function errorMessage(message) {
+  return { message, type: "error" };
+}
+
+function successMessage(message = "Feito com sucesso") {
+  return { message, type: "success" };
+}
+
 module.exports = {
   makeButonEditDelete,
   formatDate,
   formatDateTime,
   deleteFile,
   logOperation,
+  errorMessage,
+  successMessage,
 };

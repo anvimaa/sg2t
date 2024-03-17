@@ -1,9 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { makeButonEditDelete, formatDate } = require("./utlis");
-const prisma = require("../db");
+const {
+  getLicencas,
+  getLicencaById,
+  deleteLicente,
+  updateLicenca,
+  createLicenca,
+} = require("../controllers/licencaController");
 
-router.get("/page", async (req, res) => {
+const { errorMessage, successMessage } = require("./utlis");
+
+router.get("/page", async (_, res) => {
   try {
     res.render("licenca");
   } catch (error) {
@@ -13,27 +20,7 @@ router.get("/page", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    let data = await prisma.licenca.findMany({
-      include: { marking: true },
-    });
-
-    data = data.map((d) => {
-      return {
-        id: d.id,
-        descricao: d.descricao,
-        numero: d.numero,
-        observacao: d.observacao,
-        createdAt: d.createdAt.toLocaleDateString("pt-BR", formatDate),
-        btn: makeButonEditDelete(
-          d.id,
-          "licenca",
-          false,
-          false,
-          req.session.user.isAdmin || false
-        ),
-        marking: d.marking,
-      };
-    });
+    let data = await getLicencas(req.session.user.isAdmin);
     return res.send({ data: data });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -43,18 +30,11 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const id = Number(req.params.id);
-    const exist = await prisma.licenca.findFirst({
-      where: { id },
-      include: { marking: true },
-    });
-
-    if (exist) {
-      return res.json(exist);
-    }
-
-    return res.status(404).json({ error: "licenca inexistente" });
+    const licenca = await getLicencaById(id);
+    if (licenca) return res.json(licenca);
+    return res.status(404).json(errorMessage("Licenca nao encontrada"));
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json(errorMessage(error.message));
   }
 });
 
@@ -62,82 +42,45 @@ router.post("/", async (req, res) => {
   try {
     let { descricao, code, numero, id, observacao } = req.body;
     id = Number(id);
-
     let message = "";
+
     if (id == -1) {
-      const exist = await prisma.licenca.findFirst({
-        where: { descricao, numero },
+      message = await createLicenca({
+        descricao,
+        numero,
+        code,
+        observacao,
       });
-      if (exist) {
-        return res
-          .status(400)
-          .json({ message: "Ja existe uma licenca com esses dados" });
-      }
-
-      const marking = await prisma.marking.findUnique({ where: { code } });
-
-      if (!marking) {
-        return res.status(404).json({ message: "Ponto inexistente" });
-      }
-
-      await prisma.licenca.create({
-        data: { descricao, numero, observacao, markingId: marking.id, code },
-      });
-
-      message = "Cadastrado com sucesso";
     } else {
-      const exist = await prisma.licenca.findFirst({ where: { id } });
-
-      if (!exist) {
-        return res.status(404).json({ message: "licenca inexistente" });
-      }
-      await prisma.licenca.update({
-        data: { descricao, numero, observacao },
-        where: { id },
-      });
-      message = "Editado com sucesso";
+      const result = await updateLicenca(id, { descricao, numero, observacao });
+      message = result ? "Editado com sucesso" : "Licenca nao encontrada";
     }
-    res.status(201).json({ message });
+    res.json(successMessage(message));
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json(errorMessage(error.message));
   }
 });
 
 router.put("/:id", async (req, res) => {
   try {
     const id = Number(req.params.id);
-
     const { descricao, numero, observacao } = req.body;
-    const exist = await prisma.licenca.findFirst({ where: { id } });
-
-    if (!exist) {
-      return res.status(404).json({ error: "licenca inexistente" });
-    }
-    await prisma.licenca.update({
-      data: { descricao, numero, observacao },
-      where: { id },
-    });
-
-    res.json({ message: "licenca Atualizado com sucesso!" });
+    const result = await updateLicenca(id, { descricao, numero, observacao });
+    if (result) return res.json(successMessage());
+    res.status(400).json(errorMessage("Licenca inexistente"));
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json(errorMessage(error.message));
   }
 });
 
 router.delete("/:id", async (req, res) => {
   try {
     let id = Number(req.params.id);
-    const exist = await prisma.licenca.findFirst({ where: { id } });
-
-    if (!exist) {
-      return res.status(404).json({ error: "licenca inexistente" });
-    }
-
-    await prisma.licenca.delete({ where: { id } });
-
-    res.json({ message: "licenca deletado com sucesso" });
+    const result = await deleteLicente(id);
+    if (result) return res.json(successMessage());
+    res.status(400).json(errorMessage("Licenca Existente"));
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json(errorMessage(error.message));
   }
 });
 
