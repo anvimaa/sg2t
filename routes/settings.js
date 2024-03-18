@@ -86,6 +86,4 @@ router.get("/restore", async (req, res) => {
   }
 });
 
-function restoreBD() {}
-
 module.exports = router;
