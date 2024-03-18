@@ -26,21 +26,33 @@
                         <a class="nav-link" href="#aspecto" data-toggle="tab">Aspecto</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#backup" data-toggle="tab">BackUp</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#logs" data-toggle="tab">Logs</a>
                     </li>
                 </ul>
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="tab-pane active" id="geral">
-                            <div class="">
-                                <a href="/settings/backup" class="btn btn-success">Fazer Backup dos dados</a>
-                                {{!-- <form action="/settigns/restore" id="form-restore">
-                                    <button class="btn btn-danger">Restaurar dados</button>
-                                </form> --}}
-                            </div>
+
                         </div>
                         <div class="tab-pane" id="aspecto">
                             <p>Em desenvolvimento</p>
+                        </div>
+                        <div class="tab-pane" id="backup">
+                            <div class="row">
+                                <div class="col col-4">
+                                    <button id="btn-backup" class="btn btn-success">
+                                        <i class="fa fa-database"></i> Fazer Backup dos dados
+                                    </button>
+                                </div>
+                                <div class="col col-4">
+                                    <button id="btn-restore" class="btn btn-warning">
+                                        <i class="fa fa-database"></i> Restaurar Ultimo BackUp
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="logs">
                             <h1 id="title-teste"></h1>
@@ -77,26 +89,45 @@
 </div>
 
 <script>
-    var dts = [];
+    var selectedRows = [];
     $(function () {
+        $("#btn-backup").click((e) => {
+            fetch("/settings/backup").then((res) => res.json()).then((res) => {
+                console.log(res)
+                Toast.fire({
+                    icon: res.type,
+                    title: res.message
+                })
+            })
+        })
+
+        $("#btn-restore").click((e) => {
+            console.log("teste")
+            fetch("/settings/restore").then((res) => res.json()).then((res) => {
+                Toast.fire({
+                    icon: res.type,
+                    title: res.message
+                })
+            })
+        })
+
         var tb = loadSimpleTable("#table-logs")
         tb.on("select", (e, dt, type, indexes) => {
             if (type === "row") {
                 var data = dt.rows(indexes).data().toArray();
-                dts.push(data[0][0]);
-                updateCount(dts)
+                selectedRows.push(data[0][0]);
+                updateCount(selectedRows)
             }
         });
         tb.on("deselect", (e, dt, type, indexes) => {
             if (type === "row") {
                 var data = dt.rows(indexes).data().toArray();
-                dts = dts.filter((d) => d !== data[0][0]);
-                updateCount(dts)
+                selectedRows = selectedRows.filter((d) => d !== data[0][0]);
+                updateCount(selectedRows)
             }
         });
-
     });
 
-    function updateCount(dts = []) {
+    function updateCount(selectedRows = []) {
     }
 </script>
