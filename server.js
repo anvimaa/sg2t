@@ -27,8 +27,6 @@ app.use(express.json());
 hbs.registerPartials(__dirname + "/views/parcials");
 app.use("/", routes);
 
-const server = app.listen(port, () => {
+app.listen(port, () => {
   console.log(`Servidor Executando em: http://localhost:${port}/`);
 });
-
-module.exports = server;

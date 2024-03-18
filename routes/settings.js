@@ -1,8 +1,6 @@
 const express = require("express");
 const path = require("path");
-const fs = require("fs");
 const sqlite3 = require("better-sqlite3");
-const sqlite = require("sqlite3").verbose();
 
 const router = express.Router();
 const prisma = require("../db");
