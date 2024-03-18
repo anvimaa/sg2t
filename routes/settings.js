@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const multer = require("multer");
 const sqlite3 = require("better-sqlite3");
 const sqlite = require("sqlite3").verbose();
 
@@ -15,7 +14,6 @@ const {
   errorMessage,
 } = require("./utlis");
 
-const upload = multer();
 const dbPath = path.join(__dirname, "../prisma/dev.db");
 
 router.get("/page", isAdmin, async (req, res) => {
@@ -60,34 +58,8 @@ router.get("/backup", async (req, res) => {
   }
 });
 
-router.get("/restore", async (req, res) => {
+router.get("/restore", (req, res) => {
   res.json(successMessage("Restauração realizada com sucesso"));
 });
-
-function restoreDB() {
-  try {
-    const db = new sqlite.Database(dbPath);
-    const backupPath = path.join(__dirname, "../backup/backup.db");
-    console.log("Dentro");
-    db.serialize(function () {
-      db.backup(backupPath)
-        .step(1)
-        .on("end", function () {
-          console.log("Sucesso");
-          logOperation("Backup realizado com sucesso", req.session.user.id);
-          res.json(successMessage("Restauração realizada com sucesso"));
-        })
-        .on("error", function (err) {
-          logOperation("Erro ao fazer a restauração", 3, false);
-          console.log(err);
-          res.status(500).json(errorMessage("Erro ao rastaurar os dados"));
-        });
-    });
-  } catch (error) {
-    logOperation("Erro ao fazer a restauração", 3, false);
-    console.log(error);
-    res.status(500).json({ error: "Erro no servidor" });
-  }
-}
 
 module.exports = router;
