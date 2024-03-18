@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const sqlite3 = require("better-sqlite3");
 
+let a = 2;
 const router = express.Router();
 const prisma = require("../db");
 const { isAdmin } = require("./midlewares");
