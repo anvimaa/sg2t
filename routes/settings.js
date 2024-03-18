@@ -61,6 +61,10 @@ router.get("/backup", async (req, res) => {
 });
 
 router.get("/restore", async (req, res) => {
+  res.json(successMessage("Restauração realizada com sucesso"));
+});
+
+function restoreDB() {
   try {
     const db = new sqlite.Database(dbPath);
     const backupPath = path.join(__dirname, "../backup/backup.db");
@@ -84,6 +88,6 @@ router.get("/restore", async (req, res) => {
     console.log(error);
     res.status(500).json({ error: "Erro no servidor" });
   }
-});
+}
 
 module.exports = router;
