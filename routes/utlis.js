@@ -29,7 +29,7 @@ async function deleteFile(filePath) {
 
 async function logOperation(
   description,
-  userId,
+  userId = 3,
   success = true,
   route = null,
   errorMessage = null
@@ -82,7 +82,7 @@ function getCurrentDate() {
   const month = (now.getMonth() + 1).toString().padStart(2, "0");
   const day = now.getDate().toString().padStart(2, "0");
 
-  return `${year}-${month}-${day}`;
+  return `${day}-${month}-${year}`;
 }
 
 function makeButonEditDelete(
@@ -127,4 +127,5 @@ module.exports = {
   logOperation,
   errorMessage,
   successMessage,
+  getCurrentDate,
 };
