@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const prisma = require("../db");
+const { isAdmin } = require("./midlewares");
 const {
   makeButonEditDelete,
   formatDateTime,
@@ -10,7 +11,7 @@ const {
 } = require("./utlis");
 const { upload } = require("./midlewares");
 
-router.get("/page", async (req, res) => {
+router.get("/page", isAdmin, async (req, res) => {
   try {
     let users = await prisma.user.findMany();
     users = users.map((u) => {
@@ -34,7 +35,7 @@ router.get("/page", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAdmin, async (req, res) => {
   try {
     const { nome, username, password, isAdmin } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -52,8 +53,38 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", isAdmin, async (req, res) => {
+  try {
+    let id = Number(req.params.id);
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      return res.status(404).json({ error: "user inuserente" });
+    }
+
+    if (user.username == "root") {
+      return res.redirect("/users/page");
+    }
+
+    await deleteFile(user.avatar);
+    await prisma.user.delete({ where: { id } });
+
+    return res.redirect("/users/page");
+  } catch (error) {
+    logOperation(
+      "Erro ao deletar usuario",
+      req.session.user.id,
+      false,
+      "DELETE: /users/",
+      error.message
+    );
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
+    console.log("User");
     const id = Number(req.params.id);
     const user = await prisma.user.findUnique({
       where: { id },
@@ -174,35 +205,6 @@ router.post("/reset-password", async (req, res) => {
 
     return res.json({ message: "Senha Alterada com sucesso", type: "success" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  try {
-    let id = Number(req.params.id);
-    const user = await prisma.user.findUnique({ where: { id } });
-
-    if (!user) {
-      return res.status(404).json({ error: "user inuserente" });
-    }
-
-    if (user.username == "root") {
-      return res.redirect("/users/page");
-    }
-
-    await deleteFile(user.avatar);
-    await prisma.user.delete({ where: { id } });
-
-    return res.redirect("/users/page");
-  } catch (error) {
-    logOperation(
-      "Erro ao deletar usuario",
-      req.session.user.id,
-      false,
-      "DELETE: /users/",
-      error.message
-    );
     res.status(500).json({ error: error.message });
   }
 });
