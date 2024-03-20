@@ -10,8 +10,13 @@
     "studio": "npx prisma studio",
     "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "leafletjs",
+    "map",
+    "maps",
+    "geolocalization"
+  ],
+  "author": "António Mantente",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.10.2",
