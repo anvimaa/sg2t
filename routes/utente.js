@@ -104,10 +104,9 @@ router.post("/", upload.single("foto"), async (req, res) => {
         return res.status(404).json({ message: "utente inutenteente" });
       }
 
-      if (imagePath) {
-        data.foto = imagePath;
-        await deleteFile(utente.foto);
-      }
+      if (imagePath) await deleteFile(utente.foto);
+
+      data.foto = imagePath || utente.foto;
 
       await prisma.utente.update({
         data,

@@ -62,7 +62,7 @@ router.delete("/:id", isAdmin, async (req, res) => {
       return res.status(404).json({ error: "user inuserente" });
     }
 
-    if (user.username == "root") {
+    if (user.id == 3) {
       return res.redirect("/users/page");
     }
 
@@ -84,7 +84,6 @@ router.delete("/:id", isAdmin, async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    console.log("User");
     const id = Number(req.params.id);
     const user = await prisma.user.findUnique({
       where: { id },
