@@ -2,7 +2,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const router = express.Router();
 const prisma = require("../db");
-const { isAuthenticated, isAdmin } = require("./midlewares");
+const { isAuthenticated } = require("./midlewares");
 const { logOperation } = require("./utlis");
 
 const SMTP_SERVER = process.env.SMTP_SERVER;
@@ -167,7 +167,7 @@ router.use("/bairro", isAuthenticated, bairroRoutes);
 router.use("/categoria", isAuthenticated, categoriaRoutes);
 router.use("/utente", isAuthenticated, utenteRoutes);
 router.use("/licenca", isAuthenticated, licencaRoute);
-router.use("/users", isAuthenticated, isAdmin, usersRoute);
+router.use("/users", isAuthenticated, usersRoute);
 router.use("/settings", isAuthenticated, settingsRoute);
 
 module.exports = router;
